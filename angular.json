@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "Trabalho-Final-PDS2"
+    }
+  },
+  "defaultProject": "Trabalho-Final-PDS2",
+  "cli": {
+    "analytics": "0256c6aa-0baf-4b89-a20d-35dfb5c3dd2b"
+  }
 }

@@ -1,20 +1,47 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HomePageComponent } from './home-page/home-page.component';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { JoinPageComponent } from './join-page/join-page.component';
+import { AuthGuard } from './guards/guard';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    HomePageComponent,
+    LoginPageComponent,
+    JoinPageComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatCardModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSnackBarModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatDialogModule,
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -46,11 +46,11 @@ export class JoinPageComponent implements OnInit {
   submit() {
     this.http.post(`${environment.apiUrl}/v1/usuario`, this.form.value).subscribe(
       (data) => {
-        this.snackBar.open('Bem-vindo!!!');
+        this.snackBar.open('Cadastrado!','', { duration: 2000 });
         this.router.navigate(['/']);
       },
       (error) => {
-        this.snackBar.open('Ops, algo deu errado!');
+        this.snackBar.open('Ops, algo deu errado!','', { duration: 2000 });
       }
     );
   }

@@ -51,7 +51,7 @@ export class LoginPageComponent implements OnInit {
           this.router.navigate(['/home']);
         },
         (error) => {
-          this.snackBar.open('Usuário ou senha inválidos');
+          this.snackBar.open('Usuário ou senha inválidos','', { duration: 2000 });
         }
       );
   }

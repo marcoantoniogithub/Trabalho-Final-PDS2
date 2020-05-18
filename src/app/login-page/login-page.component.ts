@@ -48,7 +48,7 @@ export class LoginPageComponent implements OnInit {
       .subscribe(
         (data: any) => {
           sessionStorage.setItem('token', data.token);
-          this.router.navigate(['/home']);
+          this.router.navigate(['/']);
         },
         (error) => {
           this.snackBar.open('Usuário ou senha inválidos','', { duration: 2000 });

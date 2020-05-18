@@ -10,6 +10,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -40,6 +42,8 @@ import { AuthGuard } from './guards/guard';
     MatToolbarModule,
     MatIconModule,
     MatDialogModule,
+    MatTableModule,
+    MatPaginatorModule,
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

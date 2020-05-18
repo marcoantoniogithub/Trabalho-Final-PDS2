@@ -1,0 +1,35 @@
+h1 {
+    background-color: grey;
+    color: white;
+    font-size: bold;
+    padding: 20px;
+}
+.mat-form-field {
+    padding:10px;
+    font-size: 14px;
+    width: 100%;
+}
+.table {
+   padding: 20px;
+}
+
+table {
+    width: 100%;
+}
+
+.column-btn{
+    display: flex;
+    align-items: flex-start;
+}
+
+button {
+    margin: 5px;
+}
+
+td, th {
+    width: 20%;
+}
+
+tr.mat-footer-row {
+    font-weight: bold;
+}

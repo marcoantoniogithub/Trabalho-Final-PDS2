@@ -34,7 +34,7 @@ tr.mat-footer-row {
     font-weight: bold;
 }
 
-.markBuyed {
-  text-decoration: line-through;
-  color: #777;
+.markBuy {
+    text-decoration: line-through;
+    color: #777;
 }

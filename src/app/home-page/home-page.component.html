@@ -1,14 +1,13 @@
 <h1>
-    COMPRAS NET
+  COMPRAS NET
 </h1>
 <div class="table">
   <mat-form-field>
-      <mat-label>Busca</mat-label>
-      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Leite">
+    <mat-label>Busca</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Leite">
   </mat-form-field>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
-    
     <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef> Id </th>
       <td mat-cell *matCellDef="let element"> {{element._id}} </td>
@@ -17,7 +16,7 @@
 
     <ng-container matColumnDef="item">
       <th mat-header-cell *matHeaderCellDef> Item </th>
-      <td [class]="element._comprado ? 'markBuyed' :  '' " mat-cell *matCellDef="let element"> {{element._item}} </td>
+      <td [class]="element._comprado ? 'markBuy' :  '' " mat-cell *matCellDef="let element"> {{element._item}} </td>
       <td mat-footer-cell *matFooterCellDef></td>
     </ng-container>
 
@@ -54,10 +53,11 @@
     <ng-container matColumnDef="acoes">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <div class="column-btn" >
-          <button mat-raised-button color="primary" (click)="markBuyed(element)" >{{ element._comprado ? 'Devolver':'Comprar'}}</button> 
-          <button mat-raised-button color="accent">Editar</button> 
-          <button mat-raised-button color="warn">Excluir</button>
+        <div class="column-btn">
+           <button mat-raised-button color="primary" (click)="markBuyed(element)">
+            {{ element._comprado ? 'Devolver':'Comprar'}}</button>
+            <button mat-raised-button color="accent">Editar</button>
+            <button mat-raised-button color="warn">Excluir</button>
         </div>
       </td>
       <td mat-footer-cell *matFooterCellDef></td>
@@ -71,4 +71,3 @@
   <mat-paginator [pageSizeOptions]="[5, 15, 30]" showFirstLastButtons></mat-paginator>
 
 </div>
-  

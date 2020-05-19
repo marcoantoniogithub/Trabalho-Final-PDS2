@@ -4,7 +4,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductService } from '../service/product.service';
 import { Product } from '../models/product.model';
-import { Observable } from 'rxjs';
 
 
 @Component({
@@ -21,9 +20,7 @@ export class HomePageComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  ELEMENT_DATA: Product[] = [
-
-  ];
+  ELEMENT_DATA: Product[] = [];
 
   displayedColumns: string[] = ['id', 'item', 'comprado', 'quantidade', 'valor', 'total', 'acoes'];
   dataSource: MatTableDataSource<Product>
@@ -47,7 +44,7 @@ export class HomePageComponent implements OnInit {
     var totalComprar = this.productService.getProducts()
       .filter(elem => !elem._comprado)
       .reduce(function (acc, elem) {
-        return acc + elem._valor;
+        return acc + (elem._valor * elem._quantidade);
       }, 0);
 
       return totalComprar;
@@ -57,7 +54,7 @@ export class HomePageComponent implements OnInit {
     var totalComprado = this.productService.getProducts()
       .filter(elem => elem._comprado)
       .reduce(function (acc, elem) {
-        return acc + elem._valor;
+        return acc + (elem._valor * elem._quantidade);
       }, 0);
 
     return totalComprado;
@@ -68,8 +65,6 @@ export class HomePageComponent implements OnInit {
     this.product = this.productService.getProduct(item._id);
     this.product._comprado = item._comprado;
     this.productService.updateProduct(this.product);
-
-    this.getValueTotalComprar();
   }
-
+ 
 }

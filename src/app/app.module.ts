@@ -47,7 +47,7 @@ import { ProductService } from './service/product.service';
     MatPaginatorModule,
   ],
   providers: [AuthGuard,
-            ProductService],
+             ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

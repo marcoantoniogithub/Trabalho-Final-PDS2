@@ -2,14 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ProductService } from '../service/product.service';
+import { Product } from 'src/models/product';
+import { Observable } from 'rxjs';
 
-export interface Product {
-  item: String;
-  categoria: String;
-  comprado: Boolean;
-  quantidade: number;
-  valor: number;
-}
 
 @Component({
   selector: 'app-home-page',
@@ -18,20 +14,19 @@ export interface Product {
 })
 
 export class HomePageComponent implements OnInit {
+     
+  mrkBuy: boolean = true;
+  product: Product;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  
-  ELEMENT_DATA: Product[] = [
-
-  ];
-
-  displayedColumns: string[] = ['item', 'categoria', 'comprado', 'quantidade', 'valor', 'total', 'acoes'];
+    
+  displayedColumns: string[] = ['id', 'item', 'comprado', 'quantidade', 'valor', 'total', 'acoes'];
   dataSource: MatTableDataSource<Product>
 
-  constructor() { 
-    const users = Array.from({length: 100}, (_, k) => this.createNewProduct(k + 1));
-    this.dataSource = new MatTableDataSource(users);
+  constructor(private productService: ProductService) { 
+    const products =  productService.getProducts();  //Array.from({length: 10}, (_, k) => this.createNewProduct(k + 1));
+    this.dataSource = new MatTableDataSource(products);
   }
 
   ngOnInit(): void {
@@ -44,16 +39,23 @@ export class HomePageComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  createNewProduct(id: number): Product {
-    return {item: 'Leite', categoria: 'Frios e Laticínios', comprado: false, quantidade: 3, valor: 3.33};
-  }
-
   getValueTotalComprar() {
     return 100.00;
   }
 
   getValueTotalComprado(){
     return 20.00;
+  }
+
+  markBuy(item)  {
+
+    item.comprado = item.comprado ? false : true;
+
+    this.product = this.productService.getProduct(item.id);
+    this.product.comprado = item.comprado;
+   
+
+
   }
 
 }

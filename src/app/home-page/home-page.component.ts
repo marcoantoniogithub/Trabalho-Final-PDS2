@@ -2,14 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ProductService } from '../service/product.service';
+import { Product } from '../models/product.model';
+import { Observable } from 'rxjs';
 
-export interface Product {
-  item: String;
-  categoria: String;
-  comprado: Boolean;
-  quantidade: number;
-  valor: number;
-}
 
 @Component({
   selector: 'app-home-page',
@@ -19,19 +15,22 @@ export interface Product {
 
 export class HomePageComponent implements OnInit {
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-  
+  mrkBuy: boolean = true;
+  product: Product;
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
   ELEMENT_DATA: Product[] = [
 
   ];
 
-  displayedColumns: string[] = ['item', 'categoria', 'comprado', 'quantidade', 'valor', 'total', 'acoes'];
+  displayedColumns: string[] = ['id', 'item', 'comprado', 'quantidade', 'valor', 'total', 'acoes'];
   dataSource: MatTableDataSource<Product>
 
-  constructor() { 
-    const users = Array.from({length: 100}, (_, k) => this.createNewProduct(k + 1));
-    this.dataSource = new MatTableDataSource(users);
+  constructor(private productService: ProductService) {
+    const products = productService.getProducts();
+    this.dataSource = new MatTableDataSource(products);
   }
 
   ngOnInit(): void {
@@ -44,16 +43,33 @@ export class HomePageComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  createNewProduct(id: number): Product {
-    return {item: 'Leite', categoria: 'Frios e Laticínios', comprado: false, quantidade: 3, valor: 3.33};
-  }
-
   getValueTotalComprar() {
-    return 100.00;
+    var totalComprar = this.productService.getProducts()
+      .filter(elem => !elem._comprado)
+      .reduce(function (acc, elem) {
+        return acc + elem._valor;
+      }, 0);
+
+      return totalComprar;
   }
 
-  getValueTotalComprado(){
-    return 20.00;
+  getValueTotalComprado() {
+    var totalComprado = this.productService.getProducts()
+      .filter(elem => elem._comprado)
+      .reduce(function (acc, elem) {
+        return acc + elem._valor;
+      }, 0);
+
+    return totalComprado;
+  }
+
+  markBuyed(item) {
+    item._comprado = item._comprado ? false : true;
+    this.product = this.productService.getProduct(item._id);
+    this.product._comprado = item._comprado;
+    this.productService.updateProduct(this.product);
+
+    this.getValueTotalComprar();
   }
 
 }

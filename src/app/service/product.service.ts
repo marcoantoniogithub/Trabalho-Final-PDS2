@@ -9,15 +9,21 @@ import { Observable } from 'rxjs';
 export class ProductService {
 
   items: Product[];
-  constructor() { }
+  constructor() {
+    this.items = this.seed();
+  }
 
   getProducts() {
-    this.items = this.seed();
     return this.items;
   }
- 
-  getProduct(id: number){
-    return this.getProducts().find(item => item.id === +id);
+
+  getProduct(id: number) {
+    return this.getProducts().find(item => item.id === id);
+  }
+
+  updateProduct(item) {
+    let prod = this.getProduct(item.id);
+    this.items[prod.id - 1] = item;
   }
 
   seed() {

@@ -4,6 +4,7 @@ import { JoinPageComponent } from './join-page/join-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AuthGuard } from './guards/guard';
+import { RegisterPageComponent } from './register-page/register-page.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     component: HomePageComponent,
   },
+  {
+    path: 'cadastrar-item',
+    canActivate: [AuthGuard],
+    component: RegisterPageComponent,
+  }
 ];
 
 @NgModule({

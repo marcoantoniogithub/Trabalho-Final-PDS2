@@ -4,6 +4,7 @@
     <mat-label>Busca</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Leite">
   </mat-form-field>
+  <button mat-raised-button color="primary" routerLink="cadastrar-item"> Adicionar Item</button>
 
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
     <ng-container matColumnDef="id">

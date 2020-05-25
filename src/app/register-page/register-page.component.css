@@ -1,0 +1,26 @@
+div {
+    padding: 20px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+mat-card-header {
+    display: flex;
+    justify-content: center;
+}
+  
+mat-card-content {
+    padding-top: 20px;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+mat-card-actions{
+    display: flex;
+    justify-content: space-around;
+    margin:20px;
+}

@@ -15,6 +15,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +28,7 @@ import { AuthGuard } from './guards/guard';
 import { ProductService } from './service/product.service';
 import { TopoComponent } from './topo/topo.component';
 import { RodapeComponent } from './rodape/rodape.component';
+import { RegisterPageComponent } from './register-page/register-page.component';
 
 
 @NgModule({
@@ -35,7 +38,8 @@ import { RodapeComponent } from './rodape/rodape.component';
     LoginPageComponent,
     JoinPageComponent,
     TopoComponent,
-    RodapeComponent
+    RodapeComponent,
+    RegisterPageComponent
   ],
   imports: [
     BrowserModule,
@@ -54,7 +58,9 @@ import { RodapeComponent } from './rodape/rodape.component';
     MatPaginatorModule,
     MatSidenavModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule,
+    MatAutocompleteModule,
+    MatCheckboxModule,
   ],
   providers: [AuthGuard,
              ProductService],

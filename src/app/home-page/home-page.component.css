@@ -38,3 +38,15 @@ tr.mat-footer-row {
     text-decoration: line-through;
     color: #777;
 }
+
+.home-content {
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(100% - 20px);
+    justify-content: space-between;
+     padding: 10px;
+    .home-card {
+      margin-bottom: 10px;
+  
+    }
+  }

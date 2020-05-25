@@ -60,7 +60,7 @@ export class HomePageComponent implements OnInit {
     return totalComprado;
   }
 
-  markBuyed(item) {
+  markAsBuyed(item) {
     item._comprado = item._comprado ? false : true;
     this.product = this.productService.getProduct(item._id);
     this.product._comprado = item._comprado;

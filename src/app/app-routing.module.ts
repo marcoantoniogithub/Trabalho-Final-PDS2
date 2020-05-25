@@ -4,6 +4,7 @@ import { JoinPageComponent } from './join-page/join-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AuthGuard } from './guards/guard';
+import { TopoComponent } from './topo/topo.component';
 
 
 const routes: Routes = [
@@ -18,8 +19,17 @@ const routes: Routes = [
   {
     path: '',
     canActivate: [AuthGuard],
-    component: HomePageComponent,
+    component: TopoComponent,
+  },{
+    path: 'home',
+    children: [
+      {
+        path: '',
+        component: HomePageComponent
+      }
+    ]
   },
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

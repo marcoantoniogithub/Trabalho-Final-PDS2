@@ -12,6 +12,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,6 +24,8 @@ import { LoginPageComponent } from './login-page/login-page.component';
 import { JoinPageComponent } from './join-page/join-page.component';
 import { AuthGuard } from './guards/guard';
 import { ProductService } from './service/product.service';
+import { TopoComponent } from './topo/topo.component';
+import { RodapeComponent } from './rodape/rodape.component';
 
 
 @NgModule({
@@ -28,7 +33,9 @@ import { ProductService } from './service/product.service';
     AppComponent,
     HomePageComponent,
     LoginPageComponent,
-    JoinPageComponent
+    JoinPageComponent,
+    TopoComponent,
+    RodapeComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +52,9 @@ import { ProductService } from './service/product.service';
     MatDialogModule,
     MatTableModule,
     MatPaginatorModule,
+    MatSidenavModule,
+    MatListModule,
+    MatMenuModule
   ],
   providers: [AuthGuard,
              ProductService],

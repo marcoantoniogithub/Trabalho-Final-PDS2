@@ -8,7 +8,7 @@ import { TopoComponent } from './topo/topo.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 
 
-const routes: Routes = [
+/*const routes: Routes = [
   {
     path: 'login',
     component: LoginPageComponent,
@@ -31,7 +31,48 @@ const routes: Routes = [
     ]
   },
   { path: '**', redirectTo: '' },
+
 ];
+*/
+
+  const routes: Routes = [
+    {
+      path: 'login',
+      component: LoginPageComponent,
+    },
+    
+    {
+      path: '',
+      children: [
+        {
+          path: 'home',
+          component: HomePageComponent
+        },
+        {
+          path: 'cadastro',
+          children: [
+            {
+              path: '',
+              component: JoinPageComponent
+            },
+            {
+              path: ':id',
+              component: JoinPageComponent
+            }
+          ]
+        },
+        {
+          path: ':id',
+          component: JoinPageComponent,
+          pathMatch: 'full'
+        }
+      ]
+    },
+    { path: '**', redirectTo: '' },
+  
+  ];
+
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

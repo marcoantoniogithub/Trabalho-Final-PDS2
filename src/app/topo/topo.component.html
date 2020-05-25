@@ -4,7 +4,7 @@
       <mat-nav-list (click)="closeSideNav()">
         <a mat-list-item [routerLink]="['/home']">Inicial</a>
         <mat-divider></mat-divider>
-        <a mat-list-item [routerLink]="['']">Cadastrar Categoria</a>
+        <a mat-list-item [routerLink]="['/filmes/cadastro']">Cadastrar Categoria</a>
         <mat-divider></mat-divider>
       </mat-nav-list>
     </mat-sidenav>
@@ -13,18 +13,22 @@
         <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="openSideNav()">
           <mat-icon aria-label="Side nav toggle icon"> menu</mat-icon>
         </button>
-        <span>Compras NET</span>
+        <span>COMPRAS NET</span>
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
         </button>
-      </mat-toolbar>  
+      </mat-toolbar>
+  
       <div class="app-content">
         <router-outlet></router-outlet>
       </div>
-      <app-rodape></app-rodape>  
-    </mat-sidenav-content>  
+      
+  
+    </mat-sidenav-content>
+  
   </mat-sidenav-container>
-
+  
+  
   <mat-menu #menu="matMenu">
     <button mat-menu-item>
       <mat-icon>account_circle</mat-icon>
@@ -35,3 +39,4 @@
       <span>Configurações</span>
     </button>
   </mat-menu>
+  

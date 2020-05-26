@@ -6,34 +6,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { AuthGuard } from './guards/guard';
 import { TopoComponent } from './topo/topo.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
-
-
-/*const routes: Routes = [
-  {
-    path: 'login',
-    component: LoginPageComponent,
-  },
-  {
-    path: 'join',
-    component: JoinPageComponent,
-  },
-  {
-    path: '',
-    canActivate: [AuthGuard],
-    component: TopoComponent,
-  },{
-    path: 'home',
-    children: [
-      {
-        path: '',
-        component: HomePageComponent
-      }
-    ]
-  },
-  { path: '**', redirectTo: '' },
-
-];
-*/
+import { CategoriaPageComponent } from './categoria-page/categoria-page.component';
 
   const routes: Routes = [
     {
@@ -48,6 +21,18 @@ import { RegisterPageComponent } from './register-page/register-page.component';
         {
           path: 'home',
           component: HomePageComponent
+        },
+        {
+          path: 'categoria',
+          component: CategoriaPageComponent
+        },
+        {
+          path: 'cadastrar-item',
+          component: RegisterPageComponent
+        },
+        {
+          path: 'cadastrar-categoria',
+          component: RegisterPageComponent
         },
         {
           path: 'cadastro',

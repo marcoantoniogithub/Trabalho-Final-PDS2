@@ -49,6 +49,7 @@ import { ProductService } from './service/product.service';
 import { TopoComponent } from './topo/topo.component';
 import { RodapeComponent } from './rodape/rodape.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
+import { CategoriaPageComponent } from './categoria-page/categoria-page.component';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { RegisterPageComponent } from './register-page/register-page.component';
     JoinPageComponent,
     TopoComponent,
     RodapeComponent,
-    RegisterPageComponent
+    RegisterPageComponent,
+    CategoriaPageComponent
   ],
   imports: [
     BrowserModule,

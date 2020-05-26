@@ -43,14 +43,14 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
-import { JoinPageComponent } from './join-page/join-page.component';
 import { AuthGuard } from './guards/guard';
 import { ProductService } from './service/product.service';
-import { TopoComponent } from './topo/topo.component';
 import { RodapeComponent } from './rodape/rodape.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { CategoriaPageComponent } from './categoria-page/categoria-page.component';
 import { DespensaPageComponent } from './despensa-page/despensa-page.component';
+import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { ModalRegisterCategoryComponent } from './modal-register-category/modal-register-category.component';
 
 
 @NgModule({
@@ -58,12 +58,12 @@ import { DespensaPageComponent } from './despensa-page/despensa-page.component';
     AppComponent,
     HomePageComponent,
     LoginPageComponent,
-    JoinPageComponent,
-    TopoComponent,
     RodapeComponent,
     RegisterPageComponent,
     CategoriaPageComponent,
-    DespensaPageComponent
+    DespensaPageComponent,
+    NavBarComponent,
+    ModalRegisterCategoryComponent,
   ],
   imports: [
     BrowserModule,

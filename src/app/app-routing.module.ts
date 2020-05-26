@@ -1,55 +1,58 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { JoinPageComponent } from './join-page/join-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { AuthGuard } from './guards/guard';
-import { TopoComponent } from './topo/topo.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { CategoriaPageComponent } from './categoria-page/categoria-page.component';
+import { ModalRegisterCategoryComponent } from './modal-register-category/modal-register-category.component';
 
   const routes: Routes = [
+    {
+      path: 'home',
+      canActivate: [AuthGuard],
+      component: HomePageComponent
+    },
     {
       path: 'login',
       component: LoginPageComponent,
     },
-    
+    {
+      path: 'register',
+      component: RegisterPageComponent
+    },
     {
       path: '',
       canActivate: [AuthGuard],
       children: [
-        {
-          path: 'home',
-          component: HomePageComponent
-        },
         {
           path: 'categoria',
           component: CategoriaPageComponent
         },
         {
           path: 'cadastrar-item',
-          component: RegisterPageComponent
+          component: ModalRegisterCategoryComponent
         },
         {
           path: 'cadastrar-categoria',
-          component: RegisterPageComponent
+          component: ModalRegisterCategoryComponent
         },
         {
           path: 'cadastro',
           children: [
             {
               path: '',
-              component: JoinPageComponent
+              component: RegisterPageComponent
             },
             {
               path: ':id',
-              component: JoinPageComponent
+              component: RegisterPageComponent
             }
           ]
         },
         {
           path: ':id',
-          component: JoinPageComponent,
+          component: RegisterPageComponent,
           pathMatch: 'full'
         }
       ]

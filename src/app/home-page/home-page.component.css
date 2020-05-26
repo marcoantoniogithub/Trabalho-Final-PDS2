@@ -58,6 +58,8 @@ h1 {
 }
 .table {
    padding: 20px;
+   margin-top: 60px;
+   height: calc(100vh - 100px);
 }
 
 table {

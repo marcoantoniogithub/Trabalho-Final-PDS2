@@ -1,47 +1,25 @@
-<div>
+<div class="join">
     <mat-card>
-        <button mat-icon-button routerLink="">
-            <mat-icon>keyboard_backspace</mat-icon>
-        </button>
         <mat-card-header>
-            <H1>Novo Item de Compra</H1>
+            <mat-icon>assignment</mat-icon>
         </mat-card-header>
+
         <mat-card-content>
             <form [formGroup]="form">
                 <mat-form-field>
-                    <mat-label>Item</mat-label>
-                    <input matInput type="text" formControlName="item">
+                    <mat-label>Usuário</mat-label>
+                    <input matInput type="text" formControlName="nome">
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Categoria</mat-label>
-                    <input type="text" matInput formControlName="categoria" [matAutocomplete]="autoGroup">
-                    <mat-autocomplete #autoGroup="matAutocomplete">
-                        <mat-optgroup *ngFor="let group of stateGroupOptions | async" [label]="group.letter">
-                          <mat-option *ngFor="let name of group.names" [value]="name">
-                            {{name}}
-                          </mat-option>
-                      </mat-optgroup>
-                    </mat-autocomplete>
+                    <mat-label>Senha</mat-label>
+                    <input matInput type="password" formControlName="senha">
                 </mat-form-field>
-
-                <mat-form-field>
-                    <mat-label>Quantidade</mat-label>
-                    <input matInput type="text" formControlName="quantidade">
-                </mat-form-field>
-
-                <mat-form-field>
-                    <mat-label>Valor</mat-label>
-                    <input matInput type="text" formControlName="valor">
-                </mat-form-field>
-
-                <mat-checkbox formControlName='checkBox'>Comprado</mat-checkbox>
-
-                <mat-card-actions>
-                    <button mat-raised-button color="warn" type="reset">Limpar</button>
-                    <button mat-raised-button color="primary" routerLink="">Salvar</button>
-                </mat-card-actions>
             </form>
         </mat-card-content>
+        <mat-card-actions>
+            <a routerLink="/login" mat-button>Voltar</a>
+            <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="submit()">Cadastrar</button>
+        </mat-card-actions>
     </mat-card>
 </div>

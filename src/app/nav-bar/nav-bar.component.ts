@@ -3,13 +3,13 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { LoginService } from '../service/login.service';
 import { Router } from '@angular/router';
 
-
 @Component({
-  selector: 'app-topo',
-  templateUrl: './topo.component.html',
-  styleUrls: ['./topo.component.css']
+  selector: 'app-nav-bar',
+  templateUrl: './nav-bar.component.html',
+  styleUrls: ['./nav-bar.component.css']
 })
-export class TopoComponent implements OnInit {
+export class NavBarComponent implements OnInit {
+
   @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
   logado: boolean = false;   
 

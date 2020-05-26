@@ -3,6 +3,9 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import {Observable} from 'rxjs';
 import {startWith, map} from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { environment } from 'src/environments/environment';
 
 export interface Categorias {
   letter: string;
@@ -23,78 +26,47 @@ export const _filter = (opt: string[], value: string): string[] => {
 
 export class RegisterPageComponent implements OnInit {
   
-  stateGroupOptions: Observable<Categorias[]>;
-
-  categoria: Categorias[] = [
-    {
-      letter: 'A',
-      names: ['Açougue']
-    }, {
-      letter: 'C',
-      names: ['Carne e Frios']
-    },
-    {
-      letter: 'F',
-      names: ['Frios e Laticínios']
-    },
-  ];
-
   public form: FormGroup;
 
   constructor(
     private fb: FormBuilder,
+    private http: HttpClient,
     private router: Router,
-  ) { 
-
+    private snackBar: MatSnackBar
+  ) {
     this.form = fb.group({
-      item: [
+      nome: [
         '',
-        [
+        Validators.compose([
           Validators.minLength(3),
           Validators.maxLength(20),
           Validators.required,
-        ],
+        ]),
       ],
-      categoria: [
-        ''
-      ],
-      quantidade: [
+      senha: [
         '',
-        [
+        Validators.compose([
           Validators.minLength(3),
           Validators.maxLength(20),
           Validators.required,
-        ],
+        ]),
       ],
-      valor: [
-        '',
-        [
-          Validators.minLength(3),
-          Validators.maxLength(20),
-          Validators.required,
-        ],
-      ],
-      checkBox: [
-        false
-      ]
     });
   }
 
   ngOnInit(): void {
-    this.stateGroupOptions = this.form.get('categoria')!.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filterGroup(value))
-      );
   }
 
-  private _filterGroup(value: string): Categorias[] {
-    if (value) {
-      return this.categoria
-        .map(group => ({letter: group.letter, names: _filter(group.names, value)}))
-        .filter(group => group.names.length > 0);
-    }
-    return this.categoria;
+  submit() {
+    this.http.post(`${environment.apiUrl}/v1/usuario`, this.form.value).subscribe(
+      (data) => {
+        this.snackBar.open('Cadastrado!','', { duration: 2000 });
+        this.router.navigate(['/login']);
+      },
+      (error) => {
+        this.snackBar.open('Ops, algo deu errado!','', { duration: 2000 });
+      }
+    );
   }
 
 }

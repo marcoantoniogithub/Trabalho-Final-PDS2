@@ -9,6 +9,9 @@
 
 .app-content {
   min-height: calc(100vh - 110px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .app-title {

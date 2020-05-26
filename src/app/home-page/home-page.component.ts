@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ProductService } from '../service/product.service';
-import { Product } from '../models/product.model';
+import { Product } from '../models/Product.model';
 
 
 @Component({
@@ -22,7 +22,7 @@ export class HomePageComponent implements OnInit {
 
   ELEMENT_DATA: Product[] = [];
 
-  displayedColumns: string[] = ['id', 'item', 'comprado', 'quantidade', 'valor', 'total', 'acoes'];
+  displayedColumns: string[] = ['item','quantidade', 'valor', 'acoes'];
   dataSource: MatTableDataSource<Product>
 
   constructor(private productService: ProductService) {

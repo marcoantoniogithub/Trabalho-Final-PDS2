@@ -43,6 +43,7 @@ import { RegisterPageComponent } from './register-page/register-page.component';
     
     {
       path: '',
+      canActivate: [AuthGuard],
       children: [
         {
           path: 'home',

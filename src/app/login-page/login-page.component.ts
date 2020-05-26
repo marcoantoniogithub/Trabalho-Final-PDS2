@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { LoginService } from '../service/login.service';
 
 
 @Component({
@@ -13,12 +15,13 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginPageComponent implements OnInit {
   public form: FormGroup;
+  
 
   constructor(
-    private fb: FormBuilder,
-    private http: HttpClient,
+    private fb: FormBuilder,    
     private router: Router,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private loginService: LoginService
   ) {
     this.form = fb.group({
       nome: [
@@ -43,17 +46,18 @@ export class LoginPageComponent implements OnInit {
   ngOnInit(): void {}
 
   submit() {
-    this.http
-      .post(`${environment.apiUrl}/v1/usuario/login`, this.form.value)
-      .subscribe(
-        (data: any) => {
-          sessionStorage.setItem('token', data.token);
-          this.router.navigate(['/']);
-        },
-        (error) => {
-          this.snackBar.open('Usuário ou senha inválidos','', { duration: 2000 });
-        }
-      );
+     this.loginService.login(this.form.value)
+     .subscribe(
+      (data: any) => {
+        sessionStorage.setItem('token', data.token);
+        this.router.navigate(['/']);
+      },
+      (error) => {
+        this.snackBar.open('Usuário ou senha inválidos','', { duration: 2000 });
+      }
+    );
   }
+
+  
 
 }

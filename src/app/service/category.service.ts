@@ -1,19 +1,26 @@
 import { Injectable } from '@angular/core';
 
 import { Category } from '../models/category.model';
+import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
-  items: Category[] = [];
-  constructor() { this.seed(); }
+ 
+  constructor(private http: HttpClient) {  }
 
-  getCategorys() {
-    return this.items;
+  getCategorys(): Observable<any> {
+    const token = sessionStorage.getItem('token');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Category[]>(`${environment.apiUrl}/v1/categoria`, { headers: headers });
+     
   }
 
+  /*
   getCategory(id: number) {
     return this.getCategorys().find(item => item._id === +id);
   }
@@ -27,5 +34,5 @@ export class CategoryService {
     this.items.push(new Category(1, 'Frios e Laticínios',));
     this.items.push(new Category(2, 'Carne e Frios'));
     this.items.push(new Category(3, 'Açougue'));
-  }  
+  }  */
 }

@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CategoryService } from '../service/category.service';
 
+
 @Component({
   selector: 'app-categoria-page',
   templateUrl: './categoria-page.component.html',
@@ -13,24 +14,36 @@ import { CategoryService } from '../service/category.service';
 export class CategoriaPageComponent implements OnInit {
 
   mrkBuy: boolean = true;
-  categoria: Category;
+  categorias: Category[] = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   ELEMENT_DATA: Category[] = [];
 
-  displayedColumns: string[] = ['id', 'name', 'acoes'];
+  displayedColumns: string[] = ['id', 'nome', 'acoes'];
   dataSource: MatTableDataSource<Category>
 
-  constructor(private categoryService: CategoryService) {
-    const products = categoryService.getCategorys();
-    this.dataSource = new MatTableDataSource(products);
+  constructor(private categoryService: CategoryService) {   
+      this.listarCategorias();       
   }
 
-  ngOnInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+
+  listarCategorias() {
+       this.categoryService.getCategorys().subscribe((data: Category[]) => { 
+       this.categorias = data;        
+       this.dataSource = new MatTableDataSource(this.categorias);
+       this.dataSource.paginator = this.paginator;
+       this.dataSource.sort = this.sort;
+    },
+    (error) => {
+      console.log(error);
+    });
+  }
+
+  ngOnInit(): void {    
+    
+    
   }
 
   applyFilter(event: Event) {

@@ -3,6 +3,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { CategoryService } from 'src/app/service/category.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Category } from 'src/app/models/category.model';
 
 @Component({
   selector: 'app-register-category',
@@ -11,10 +12,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class RegisterCategoryComponent implements OnInit {
 
-  public form: FormGroup;
-  public nomeUpdate:string = this.route.snapshot.paramMap.get('nome');
-  public idUpdate:string = this.route.snapshot.paramMap.get('id');
+  public form: FormGroup; 
   public title:string;
+  category: Category;
+
 
   constructor(
     private fb: FormBuilder,
@@ -24,8 +25,7 @@ export class RegisterCategoryComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.form = fb.group({
-      nome:[
-        this.nomeUpdate,
+      nome:['', 
         [
           Validators.minLength(3),
           Validators.maxLength(20),
@@ -36,11 +36,11 @@ export class RegisterCategoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.nomeUpdate != ''? this.title = 'Alteração de Categoria' : this.title = 'Cadastro de Categoria';
+    //this.nomeUpdate != ''? this.title = 'Alteração de Categoria' : this.title = 'Cadastro de Categoria';
   }
 
   submit(){
-    this.categoryService.postCategorys(this.form.value).subscribe(
+    this.categoryService.postCategory(this.form.value).subscribe(
       data => {
         this.router.navigate(['/categoria']);
       },
@@ -51,8 +51,15 @@ export class RegisterCategoryComponent implements OnInit {
   }
 
   update(){
-    let value:any = JSON.parse(`{"id": ${this.idUpdate}, "nome": "${this.form.controls['nome'].value}"}`);
-    this.categoryService.putCategorys(value).subscribe(
+    const id = this.route.snapshot.paramMap.get('id');    
+    
+    this.categoryService.getCategory(+id).subscribe((category: Category) => {
+          this.category = category;
+       });   
+
+
+    let value:any = JSON.parse(`{"id": ${id}, "nome": "${this.form.controls['nome'].value}"}`);
+    this.categoryService.putCategory(value).subscribe(
       data => {
         this.router.navigate(['/categoria']);
       },

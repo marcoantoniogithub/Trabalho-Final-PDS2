@@ -55,7 +55,7 @@ export class ReadCategoryComponent implements OnInit {
 
   delete(value:any){
     console.log(value);
-    this.categoryService.deleteCategorys(value).subscribe(
+    this.categoryService.deleteCategory(+value).subscribe(
       data => {
         console.log(data);
       }
@@ -63,6 +63,7 @@ export class ReadCategoryComponent implements OnInit {
   }
 
   put(value:any){
+    //console.log(value);
     this.router.navigate(['/categoria/cadastrar', {nome: value.nome, id: value.id}]);
   }
 }

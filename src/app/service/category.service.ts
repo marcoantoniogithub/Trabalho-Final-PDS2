@@ -24,20 +24,25 @@ export class CategoryService {
      
   }
 
-  postCategorys(value:string): Observable<any>{
+  postCategory(value:string): Observable<any>{
     const headers = this.getToken();
     return this.http.post(`${environment.apiUrl}/v1/categoria`,value, { headers: headers });
   }
 
-  deleteCategorys(value:string){
+  deleteCategory(id:number){
     const headers = this.getToken();
     return this.http.delete(`${environment.apiUrl}/v1/categoria/`, { headers: headers});
   }
 
-  putCategorys(value:string): Observable<any>{
+  putCategory(value:string): Observable<any>{
     const headers = this.getToken();
-    return this.http.put(`${environment.apiUrl}/v1/categoria`,value, { headers: headers });
+    return this.http.put<Category>(`${environment.apiUrl}/v1/categoria`,value, { headers: headers });
   }
+
+  getCategory(id: number) {
+     return this.http.get<Category>(`${environment.apiUrl}/v1/categoria/` + id);
+  }
+
 
   /*
   getCategory(id: number) {

@@ -22,8 +22,8 @@
         <th mat-header-cell *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let element">
           <div class="column-btn">
-              <button mat-raised-button color="accent" (click)="put(element)">Editar</button>
-              <button mat-raised-button color="warn" (click)="delete(element)">Excluir</button>
+              <button mat-raised-button color="accent" (click)="put(element.id)">Editar</button>
+              <button mat-raised-button color="warn" (click)="delete(element.id)">Excluir</button>
           </div>
         </td>
         <td mat-footer-cell *matFooterCellDef></td>

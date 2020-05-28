@@ -5,6 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { CategoryService } from 'src/app/service/category.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-read-category',
@@ -25,7 +26,9 @@ export class ReadCategoryComponent implements OnInit {
   dataSource: MatTableDataSource<Category>
 
   constructor(
-    private categoryService: CategoryService, private router: Router
+    private categoryService: CategoryService, 
+    private router: Router,
+    private snackBar: MatSnackBar,
   ) {   
       this.listarCategorias();       
   }
@@ -53,17 +56,20 @@ export class ReadCategoryComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  delete(value:any){
-    console.log(value);
-    this.categoryService.deleteCategory(+value).subscribe(
+  delete(value:number){
+    this.categoryService.deleteCategory(value).subscribe(
       data => {
-        console.log(data);
+        //this.router.navigateByUrl(['/categoria']);
+        this.snackBar.open('sucesso','', { duration: 2000 });
+      },
+      (error) => {
+        this.snackBar.open('Ops algo deu errado!','', { duration: 2000 });
+        console.log(error);
       }
     )
   }
 
-  put(value:any){
-    //console.log(value);
-    this.router.navigate(['/categoria/cadastrar', {nome: value.nome, id: value.id}]);
+  put(value:number){
+    this.router.navigate(['/categoria/cadastrar', {id: value}]);
   }
 }

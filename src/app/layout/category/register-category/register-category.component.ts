@@ -14,8 +14,7 @@ export class RegisterCategoryComponent implements OnInit {
 
   public form: FormGroup; 
   public title:string;
-  category: Category;
-
+  public category: Category;
 
   constructor(
     private fb: FormBuilder,
@@ -25,18 +24,35 @@ export class RegisterCategoryComponent implements OnInit {
     private route: ActivatedRoute
   ) {
     this.form = fb.group({
-      nome:['', 
+      nome:[
+        '', 
         [
           Validators.minLength(3),
           Validators.maxLength(20),
           Validators.required,
         ],
       ],
-    })
+    });
   }
 
   ngOnInit(): void {
-    //this.nomeUpdate != ''? this.title = 'Alteração de Categoria' : this.title = 'Cadastro de Categoria';
+
+    let id:number = Number(this.route.snapshot.paramMap.get('id'));
+    console.log(id);
+
+    if(id != null){
+      this.title = 'Alteração de Categoria';
+      this.categoryService.getCategory(id).subscribe(
+        (category: Category) => {
+          this.category = category;
+        },
+        (error) => {
+          this.snackBar.open('Ops, algo deu errado!','', { duration: 2000 });
+        }
+      );
+    } else {
+      this.title = 'Cadastro de Categoria';
+    }
   }
 
   submit(){
@@ -51,15 +67,10 @@ export class RegisterCategoryComponent implements OnInit {
   }
 
   update(){
-    const id = this.route.snapshot.paramMap.get('id');    
-    
-    this.categoryService.getCategory(+id).subscribe((category: Category) => {
-          this.category = category;
-       });   
-
-
-    let value:any = JSON.parse(`{"id": ${id}, "nome": "${this.form.controls['nome'].value}"}`);
-    this.categoryService.putCategory(value).subscribe(
+    debugger;
+    const value:any = JSON.parse(`{"id": ${this.category.id}, "nome": "${this.form.controls['nome'].value}"}`);
+    console.log(value);
+    this.categoryService.putCategory(this.category.id,value).subscribe(
       data => {
         this.router.navigate(['/categoria']);
       },

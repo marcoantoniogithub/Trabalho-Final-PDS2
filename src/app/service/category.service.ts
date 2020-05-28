@@ -31,16 +31,17 @@ export class CategoryService {
 
   deleteCategory(id:number){
     const headers = this.getToken();
-    return this.http.delete(`${environment.apiUrl}/v1/categoria/`, { headers: headers});
+    return this.http.delete(`${environment.apiUrl}/v1/categoria/${id}`, { headers: headers});
   }
 
-  putCategory(value:string): Observable<any>{
+  putCategory(id:number,value:string): Observable<any>{
     const headers = this.getToken();
-    return this.http.put<Category>(`${environment.apiUrl}/v1/categoria`,value, { headers: headers });
+    return this.http.put<Category>(`${environment.apiUrl}/v1/categoria/${id}`,value, { headers: headers });
   }
 
   getCategory(id: number) {
-     return this.http.get<Category>(`${environment.apiUrl}/v1/categoria/` + id);
+    const headers = this.getToken();
+     return this.http.get<Category>(`${environment.apiUrl}/v1/categoria/${id}`, { headers: headers });
   }
 
 

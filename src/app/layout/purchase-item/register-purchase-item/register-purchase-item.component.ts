@@ -1,16 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Categorias, _filter } from '../register-page/register-page.component';
+import { Categorias, _filter } from '../../core/register-page/register-page.component';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { startWith, map } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-modal-register-category',
-  templateUrl: './modal-register-category.component.html',
-  styleUrls: ['./modal-register-category.component.css']
+  selector: 'app-register-purchase-item',
+  templateUrl: './register-purchase-item.component.html',
+  styleUrls: ['./register-purchase-item.component.css']
 })
-export class ModalRegisterCategoryComponent implements OnInit {
+export class RegisterPurchaseItemComponent implements OnInit {
 
   stateGroupOptions: Observable<Categorias[]>;
 

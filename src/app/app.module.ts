@@ -19,38 +19,21 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
-
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatTabsModule } from '@angular/material/tabs';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
-import { MatBadgeModule } from '@angular/material/badge';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatSelectModule } from '@angular/material/select';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatSortModule } from '@angular/material/sort';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
-
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HomePageComponent } from './home-page/home-page.component';
-import { LoginPageComponent } from './login-page/login-page.component';
 import { AuthGuard } from './guards/guard';
 import { ProductService } from './service/product.service';
-import { RodapeComponent } from './rodape/rodape.component';
-import { RegisterPageComponent } from './register-page/register-page.component';
-import { CategoriaPageComponent } from './categoria-page/categoria-page.component';
-import { DespensaPageComponent } from './despensa-page/despensa-page.component';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { ModalRegisterCategoryComponent } from './modal-register-category/modal-register-category.component';
+import { HomePageComponent } from './layout/purchase-item/home-page/home-page.component';
+import { LoginPageComponent } from './layout/core/login-page/login-page.component';
+import { RodapeComponent } from './layout/core/rodape/rodape.component';
+import { RegisterPageComponent } from './layout/core/register-page/register-page.component';
+import { DespensaPageComponent } from './layout/storeroom/despensa-page/despensa-page.component';
+import { NavBarComponent } from './layout/core/nav-bar/nav-bar.component';
+import { RegisterPurchaseItemComponent } from './layout/purchase-item/register-purchase-item/register-purchase-item.component';
+import { RegisterCategoryComponent } from './layout/category/register-category/register-category.component';
+import { ReadCategoryComponent } from './layout/category/read-category/read-category.component';
+
 
 
 @NgModule({
@@ -60,10 +43,12 @@ import { ModalRegisterCategoryComponent } from './modal-register-category/modal-
     LoginPageComponent,
     RodapeComponent,
     RegisterPageComponent,
-    CategoriaPageComponent,
+    ReadCategoryComponent,
     DespensaPageComponent,
     NavBarComponent,
-    ModalRegisterCategoryComponent,
+    RegisterPurchaseItemComponent,
+    RegisterCategoryComponent,
+    ReadCategoryComponent,
   ],
   imports: [
     BrowserModule,

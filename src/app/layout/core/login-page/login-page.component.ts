@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
-import { LoginService } from '../service/login.service';
+import { LoginService } from 'src/app/service/login.service';
 
 
 @Component({

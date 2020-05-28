@@ -1,17 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Category } from '../models/category.model';
+import { Category } from 'src/app/models/category.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { CategoryService } from '../service/category.service';
-
+import { CategoryService } from 'src/app/service/category.service';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-categoria-page',
-  templateUrl: './categoria-page.component.html',
-  styleUrls: ['./categoria-page.component.css']
+  selector: 'app-read-category',
+  templateUrl: './read-category.component.html',
+  styleUrls: ['./read-category.component.css']
 })
-export class CategoriaPageComponent implements OnInit {
+export class ReadCategoryComponent implements OnInit {
 
   mrkBuy: boolean = true;
   categorias: Category[] = [];
@@ -24,7 +24,9 @@ export class CategoriaPageComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nome', 'acoes'];
   dataSource: MatTableDataSource<Category>
 
-  constructor(private categoryService: CategoryService) {   
+  constructor(
+    private categoryService: CategoryService, private router: Router
+  ) {   
       this.listarCategorias();       
   }
 
@@ -51,4 +53,16 @@ export class CategoriaPageComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+  delete(value:any){
+    console.log(value);
+    this.categoryService.deleteCategorys(value).subscribe(
+      data => {
+        console.log(data);
+      }
+    )
+  }
+
+  put(value:any){
+    this.router.navigate(['/categoria/cadastrar', {nome: value.nome, id: value.id}]);
+  }
 }

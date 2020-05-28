@@ -1,11 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LoginPageComponent } from './login-page/login-page.component';
-import { HomePageComponent } from './home-page/home-page.component';
 import { AuthGuard } from './guards/guard';
-import { RegisterPageComponent } from './register-page/register-page.component';
-import { CategoriaPageComponent } from './categoria-page/categoria-page.component';
-import { ModalRegisterCategoryComponent } from './modal-register-category/modal-register-category.component';
+import { HomePageComponent } from './layout/purchase-item/home-page/home-page.component';
+import { LoginPageComponent } from './layout/core/login-page/login-page.component';
+import { RegisterPageComponent } from './layout/core/register-page/register-page.component';
+import { RegisterPurchaseItemComponent } from './layout/purchase-item/register-purchase-item/register-purchase-item.component';
+import { ReadCategoryComponent } from './layout/category/read-category/read-category.component';
+import { RegisterCategoryComponent } from './layout/category/register-category/register-category.component';
 
   const routes: Routes = [
     {
@@ -27,15 +28,25 @@ import { ModalRegisterCategoryComponent } from './modal-register-category/modal-
       children: [
         {
           path: 'categoria',
-          component: CategoriaPageComponent
+          children: [
+            {
+              path:'',
+              component: ReadCategoryComponent
+            },
+            {
+              path:'cadastrar',
+              component: RegisterCategoryComponent
+            }
+          ]
+          
         },
         {
           path: 'cadastrar-item',
-          component: ModalRegisterCategoryComponent
+          component: RegisterPurchaseItemComponent
         },
         {
           path: 'cadastrar-categoria',
-          component: ModalRegisterCategoryComponent
+          component: RegisterPurchaseItemComponent
         },
         {
           path: 'cadastro',

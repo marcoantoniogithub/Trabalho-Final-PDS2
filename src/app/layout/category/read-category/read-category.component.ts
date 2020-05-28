@@ -59,8 +59,7 @@ export class ReadCategoryComponent implements OnInit {
   delete(value:number){
     this.categoryService.deleteCategory(value).subscribe(
       data => {
-        //this.router.navigateByUrl(['/categoria']);
-        this.snackBar.open('sucesso','', { duration: 2000 });
+        window.location.reload();
       },
       (error) => {
         this.snackBar.open('Ops algo deu errado!','', { duration: 2000 });

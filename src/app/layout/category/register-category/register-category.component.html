@@ -15,8 +15,8 @@
 
                 <mat-card-actions>
                     <button mat-raised-button color="warn" type="reset">Limpar</button>
-                    <button *ngIf="this.nomeUpdate == ''" mat-raised-button color="primary" [disabled]="!form.valid" (click)="submit()">Salvar</button>
-                    <button *ngIf="this.nomeUpdate != ''" mat-raised-button color="primary" [disabled]="!form.valid" (click)="update()">Alterar</button>
+                    <button *ngIf="this.nomeUpdate == null" mat-raised-button color="primary" [disabled]="!form.valid" (click)="submit()">Salvar</button>
+                    <button *ngIf="this.nomeUpdate != null" mat-raised-button color="primary" [disabled]="!form.valid" (click)="update()">Alterar</button>
                 </mat-card-actions>
             </form>
         </mat-card-content>

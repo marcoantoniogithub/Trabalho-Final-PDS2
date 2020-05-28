@@ -45,7 +45,6 @@ export class RegisterCategoryComponent implements OnInit {
         this.router.navigate(['/categoria']);
       },
       error => {
-        console.log(error);
         this.snackBar.open('Ops, algo deu errado!','', { duration: 2000 });
       },
     )
@@ -58,7 +57,6 @@ export class RegisterCategoryComponent implements OnInit {
         this.router.navigate(['/categoria']);
       },
       error => {
-        console.log(error);
         this.snackBar.open('Ops, algo deu errado!','', { duration: 2000 });
       },
     )

@@ -4,20 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
 
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSidenavModule} from '@angular/material/sidenav';
-import { MatListModule} from '@angular/material/list';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +20,7 @@ import { NavBarComponent } from './layout/core/nav-bar/nav-bar.component';
 import { RegisterPurchaseItemComponent } from './layout/purchase-item/register-purchase-item/register-purchase-item.component';
 import { RegisterCategoryComponent } from './layout/category/register-category/register-category.component';
 import { ReadCategoryComponent } from './layout/category/read-category/read-category.component';
+import { MaterialModule } from './layout/core/material/material.module';
 
 
 
@@ -57,22 +45,7 @@ import { ReadCategoryComponent } from './layout/category/read-category/read-cate
     LayoutModule,
     ReactiveFormsModule,
     HttpClientModule,
-    MatCardModule,
-    MatButtonModule,
-    MatInputModule,
-    MatSnackBarModule,
-    MatToolbarModule,
-    MatIconModule,
-    MatDialogModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSidenavModule,
-    MatListModule,
-    MatMenuModule,
-    MatAutocompleteModule,
-    MatCheckboxModule,
-
-    
+    MaterialModule    
   ],
   providers: [AuthGuard,
              ProductService],

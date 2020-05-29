@@ -19,11 +19,6 @@ table {
     width: 100%;
 }
 
-.column-btn{
-    display: flex;
-    align-items: flex-start;
-}
-
 button {
     margin: 5px;
 }

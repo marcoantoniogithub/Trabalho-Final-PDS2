@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
 import { Category } from 'src/app/models/category.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -26,28 +27,29 @@ export class ReadCategoryComponent implements OnInit {
   dataSource: MatTableDataSource<Category>
 
   constructor(
-    private categoryService: CategoryService, 
+    private categoryService: CategoryService,
     private router: Router,
+    private location: Location,
     private snackBar: MatSnackBar,
-  ) {   
-      this.getCategories();       
+  ) {
+    this.getCategories();
   }
 
 
   getCategories() {
-       this.categoryService.getCategories().subscribe((data: Category[]) => { 
-       this.categorias = data;        
-       this.dataSource = new MatTableDataSource(this.categorias);
-       this.dataSource.paginator = this.paginator;
-       this.dataSource.sort = this.sort;
+    this.categoryService.getCategories().subscribe((data: Category[]) => {
+      this.categorias = data;
+      this.dataSource = new MatTableDataSource(this.categorias);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     },
-    (error) => {
-      console.log(error);
-    });
+      (error) => {
+        console.log(error);
+      });
   }
 
-  ngOnInit(): void {    
-    
+  ngOnInit(): void {
+
   }
 
   applyFilter(event: Event) {
@@ -55,19 +57,19 @@ export class ReadCategoryComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  deleteCategory(value:number){
+  deleteCategory(value: number) {
     this.categoryService.deleteCategory(value).subscribe(
       data => {
-        window.location.reload();
+        this.getCategories();        
       },
       (error) => {
-        this.snackBar.open('Ops algo deu errado!','', { duration: 2000 });
+        this.snackBar.open('Ops algo deu errado!', '', { duration: 2000 });
         console.log(error);
       }
     )
   }
 
-  save(value:number){
+  save(value: number) {
     this.router.navigate(['/categoria/cadastrar/' + value]);
-  }
+  } 
 }

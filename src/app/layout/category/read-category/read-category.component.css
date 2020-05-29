@@ -39,10 +39,11 @@ table {
     width: 100%;
 }
 
+/*
 .column-btn{
     display: flex;
-    align-items: flex-start;
-}
+    align-items: center;
+} */
 
 button {
     margin: 5px;

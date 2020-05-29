@@ -13,10 +13,10 @@
                     <input matInput type="text" formControlName="nome">
                 </mat-form-field>
 
-                <mat-card-actions>
-                    <button mat-raised-button color="warn" type="reset">Limpar</button>
+                <mat-card-actions align="end">
                     <button *ngIf="this.id == 0" mat-raised-button color="primary" [disabled]="!form.valid" (click)="submit()">Salvar</button>
                     <button *ngIf="this.id != 0" mat-raised-button color="primary" [disabled]="!form.valid" (click)="update()">Alterar</button>
+                    <button mat-raised-button color="warn" type="reset">Limpar</button>                    
                 </mat-card-actions>
             </form>
         </mat-card-content>

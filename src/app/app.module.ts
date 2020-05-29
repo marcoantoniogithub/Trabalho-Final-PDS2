@@ -3,12 +3,10 @@ import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
-
-
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { AuthGuard } from './guards/guard';
 import { ProductService } from './service/product.service';
 import { HomePageComponent } from './layout/purchase-item/home-page/home-page.component';
@@ -41,14 +39,14 @@ import { MaterialModule } from './layout/core/material/material.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule,
+    BrowserAnimationsModule,    
     LayoutModule,
+    MaterialModule,    
     ReactiveFormsModule,
     HttpClientModule,
-    MaterialModule    
+    
   ],
-  providers: [AuthGuard,
-             ProductService],
+  providers: [AuthGuard, ProductService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

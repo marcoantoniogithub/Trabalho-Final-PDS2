@@ -15,6 +15,7 @@ export class RegisterCategoryComponent implements OnInit {
   public form: FormGroup; 
   public title:string;
   public category: Category;
+  public id:number;
 
   constructor(
     private fb: FormBuilder,
@@ -23,6 +24,7 @@ export class RegisterCategoryComponent implements OnInit {
     private snackBar: MatSnackBar,
     private route: ActivatedRoute
   ) {
+
     this.form = fb.group({
       nome:[
         '', 
@@ -36,15 +38,14 @@ export class RegisterCategoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.id = Number(this.route.snapshot.paramMap.get('id'));
 
-    let id:number = Number(this.route.snapshot.paramMap.get('id'));
-    console.log(id);
-
-    if(id != null){
+    if(this.id != 0){
       this.title = 'Alteração de Categoria';
-      this.categoryService.getCategory(id).subscribe(
+      this.categoryService.getCategory(this.id).subscribe(
         (category: Category) => {
           this.category = category;
+          this.form.controls['nome'].setValue(this.category.nome);
         },
         (error) => {
           this.snackBar.open('Ops, algo deu errado!','', { duration: 2000 });
@@ -57,10 +58,10 @@ export class RegisterCategoryComponent implements OnInit {
 
   submit(){
     this.categoryService.postCategory(this.form.value).subscribe(
-      data => {
+      (data) => {
         this.router.navigate(['/categoria']);
       },
-      error => {
+      (error) => {
         this.snackBar.open('Ops, algo deu errado!','', { duration: 2000 });
       },
     )
@@ -71,10 +72,10 @@ export class RegisterCategoryComponent implements OnInit {
     const value:any = JSON.parse(`{"id": ${this.category.id}, "nome": "${this.form.controls['nome'].value}"}`);
     console.log(value);
     this.categoryService.putCategory(this.category.id,value).subscribe(
-      data => {
+      (data) => {
         this.router.navigate(['/categoria']);
       },
-      error => {
+      (error) => {
         this.snackBar.open('Ops, algo deu errado!','', { duration: 2000 });
       },
     )

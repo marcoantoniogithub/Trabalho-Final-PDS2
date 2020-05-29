@@ -12,17 +12,17 @@ import { Category } from 'src/app/models/category.model';
 })
 export class RegisterCategoryComponent implements OnInit {
 
-  public form: FormGroup; 
-  public title:string;
-  public category: Category;
-  public id:number;
+  form: FormGroup; 
+  title:string;
+  category: Category;
+  id:number;
 
   constructor(
     private fb: FormBuilder,
     private categoryService: CategoryService, 
     private router: Router,
     private snackBar: MatSnackBar,
-    private route: ActivatedRoute
+    private route: ActivatedRoute    
   ) {
 
     this.form = fb.group({
@@ -38,7 +38,7 @@ export class RegisterCategoryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.id = Number(this.route.snapshot.paramMap.get('id'));
+    this.id = +this.route.snapshot.paramMap.get('id');
 
     if(this.id != 0){
       this.title = 'Alteração de Categoria';
@@ -57,7 +57,7 @@ export class RegisterCategoryComponent implements OnInit {
   }
 
   submit(){
-    this.categoryService.postCategory(this.form.value).subscribe(
+    this.categoryService.addCategory(this.form.value).subscribe(
       (data) => {
         this.router.navigate(['/categoria']);
       },
@@ -67,11 +67,10 @@ export class RegisterCategoryComponent implements OnInit {
     )
   }
 
-  update(){
-    debugger;
-    const value:any = JSON.parse(`{"id": ${this.category.id}, "nome": "${this.form.controls['nome'].value}"}`);
-    console.log(value);
-    this.categoryService.putCategory(this.category.id,value).subscribe(
+  update(){ 
+    let category = this.form.getRawValue() as Category;    
+    category.id =  this.category.id;    
+    this.categoryService.updateCategory(category).subscribe(
       (data) => {
         this.router.navigate(['/categoria']);
       },

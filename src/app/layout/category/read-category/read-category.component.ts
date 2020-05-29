@@ -30,12 +30,12 @@ export class ReadCategoryComponent implements OnInit {
     private router: Router,
     private snackBar: MatSnackBar,
   ) {   
-      this.listarCategorias();       
+      this.getCategories();       
   }
 
 
-  listarCategorias() {
-       this.categoryService.getCategorys().subscribe((data: Category[]) => { 
+  getCategories() {
+       this.categoryService.getCategories().subscribe((data: Category[]) => { 
        this.categorias = data;        
        this.dataSource = new MatTableDataSource(this.categorias);
        this.dataSource.paginator = this.paginator;
@@ -48,7 +48,6 @@ export class ReadCategoryComponent implements OnInit {
 
   ngOnInit(): void {    
     
-    
   }
 
   applyFilter(event: Event) {
@@ -56,7 +55,7 @@ export class ReadCategoryComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  delete(value:number){
+  deleteCategory(value:number){
     this.categoryService.deleteCategory(value).subscribe(
       data => {
         window.location.reload();
@@ -69,6 +68,6 @@ export class ReadCategoryComponent implements OnInit {
   }
 
   put(value:number){
-    this.router.navigate(['/categoria/cadastrar', {id: value}]);
+    this.router.navigate(['/categoria/cadastrar/' + value]);
   }
 }

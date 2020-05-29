@@ -23,24 +23,28 @@ import { RegisterCategoryComponent } from './layout/category/register-category/r
       component: RegisterPageComponent
     },
     {
-      path: '',
-      canActivate: [AuthGuard],
+      path: 'categoria',   
+      canActivate: [AuthGuard],   
       children: [
-        {
-          path: 'categoria',
-          children: [
-            {
+            { 
               path:'',
               component: ReadCategoryComponent
             },
             {
               path:'cadastrar',
-              component: RegisterCategoryComponent
+              children: [
+                  {
+                    path: '',
+                    component: RegisterCategoryComponent
+                  },
+                  {
+                    path: ':id',
+                    component: RegisterCategoryComponent
+                  }
+                ]              
             }
-          ]
-          
-        },
-        {
+    
+       /* {
           path: 'cadastrar-item',
           component: RegisterPurchaseItemComponent
         },
@@ -66,11 +70,15 @@ import { RegisterCategoryComponent } from './layout/category/register-category/r
           component: RegisterPageComponent,
           pathMatch: 'full'
         }
+      */      
       ]
     },
     { path: '**', redirectTo: '' },
-  
   ];
+
+  
+  
+  
 
 
 

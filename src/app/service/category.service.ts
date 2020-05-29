@@ -18,31 +18,33 @@ export class CategoryService {
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
-  getCategorys(): Observable<any> {
+  getCategories(): Observable<any> {
     const headers = this.getToken();
     return this.http.get<Category[]>(`${environment.apiUrl}/v1/categoria`, { headers: headers });
      
-  }
-
-  postCategory(value:string): Observable<any>{
-    const headers = this.getToken();
-    return this.http.post(`${environment.apiUrl}/v1/categoria`,value, { headers: headers });
-  }
-
-  deleteCategory(id:number){
-    const headers = this.getToken();
-    return this.http.delete(`${environment.apiUrl}/v1/categoria/${id}`, { headers: headers});
-  }
-
-  putCategory(id:number,value:string): Observable<any>{
-    const headers = this.getToken();
-    return this.http.put<Category>(`${environment.apiUrl}/v1/categoria/${id}`,value, { headers: headers });
   }
 
   getCategory(id: number) {
     const headers = this.getToken();
      return this.http.get<Category>(`${environment.apiUrl}/v1/categoria/${id}`, { headers: headers });
   }
+
+  addCategory(value:string): Observable<any>{
+    const headers = this.getToken();
+    return this.http.post(`${environment.apiUrl}/v1/categoria`,value, { headers: headers });
+  }
+
+  deleteCategory(id:number){
+    const headers = this.getToken();
+    return this.http.delete<void>(`${environment.apiUrl}/v1/categoria/${id}`, { headers: headers});
+  }
+
+  updateCategory(category: Category): Observable<any>{
+    const headers = this.getToken();
+    return this.http.put<Category>(`${environment.apiUrl}/v1/categoria/${category.id}`,category, { headers: headers });
+  }
+
+ 
 
 
   /*

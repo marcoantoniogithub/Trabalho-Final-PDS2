@@ -22,7 +22,7 @@ export class HomePageComponent implements OnInit {
 
   ELEMENT_DATA: Product[] = [];
 
-  displayedColumns: string[] = ['item','quantidade', 'valor', 'acoes'];
+  displayedColumns: string[] = ['item','quantidade', 'valor', 'total', 'acoes'];
   dataSource: MatTableDataSource<Product>
 
   constructor(private productService: ProductService) {

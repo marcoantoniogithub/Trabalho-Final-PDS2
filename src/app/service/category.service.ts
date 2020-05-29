@@ -41,7 +41,7 @@ export class CategoryService {
 
   updateCategory(category: Category): Observable<any>{
     const headers = this.getToken();
-    return this.http.put<Category>(`${environment.apiUrl}/v1/categoria/${category.id}`,category, { headers: headers });
+    return this.http.put<Category>(`${environment.apiUrl}/v1/categoria/}`,category, { headers: headers });
   }
 
  

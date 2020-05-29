@@ -67,7 +67,7 @@ export class ReadCategoryComponent implements OnInit {
     )
   }
 
-  put(value:number){
+  save(value:number){
     this.router.navigate(['/categoria/cadastrar/' + value]);
   }
 }

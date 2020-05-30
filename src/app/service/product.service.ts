@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 
 import { Product } from '../models/Product.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Category } from '../models/category.model';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 
@@ -21,7 +20,12 @@ export class ProductService {
 
   getProducts(): Observable<any> {
     const headers = this.getToken();
-    return this.http.get<Category[]>(`${environment.apiUrl}/v1/itemcompra`, { headers: headers });
+    return this.http.get<Product[]>(`${environment.apiUrl}/v1/itemcompra`, { headers: headers });
+  }
+
+  deleteProduct(id:number){
+    const headers = this.getToken();
+    return this.http.delete<void>(`${environment.apiUrl}/v1/itemcompra/${id}`, { headers: headers});
   }
 
   // getProduct(id: number) {

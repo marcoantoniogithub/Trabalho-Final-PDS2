@@ -6,6 +6,7 @@ import { Product } from 'src/app/models/Product.model';
 import { ProductService } from 'src/app/service/product.service';
 import { CategoryService } from 'src/app/service/category.service';
 import { Category } from 'src/app/models/category.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -17,41 +18,30 @@ import { Category } from 'src/app/models/category.model';
 export class HomePageComponent implements OnInit {
 
   mrkBuy: boolean = true;
-  products: Array<Product>;
-  categorias: Array<Category>;
+  products: Product[];
+  categorias: Category[];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   ELEMENT_DATA: Product[] = [];
 
-  displayedColumns: string[] = ['nome', 'quantidade', 'valor', 'categoria','comprado', 'total', 'acoes'];
+  displayedColumns: string[] = ['nome', 'quantidade', 'valor', 'categoria', 'total', 'acoes'];
   dataSource: MatTableDataSource<Product>
 
   constructor(
     private productService: ProductService,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private snackBar: MatSnackBar
   ) {
-    this.getProducts();
   }
 
-  ngOnInit(): void {
-    // this.dataSource.paginator = this.paginator;
-    // this.dataSource.sort = this.sort;
+  async ngOnInit(): Promise<void>{
+    await this.getCategories();
+    await this.getProducts();
   }
 
-  getProducts() {
-
-    this.categoryService.getCategories().subscribe(
-      (data: Category[]) => {
-        this.categorias  = data;
-        console.log(this.categorias[+this.products[0].categoriaId].nome);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-
+  async getProducts(){
     this.productService.getProducts().subscribe(
       (data: Product[]) => {
         this.products = data;
@@ -64,20 +54,50 @@ export class HomePageComponent implements OnInit {
       }
     );
   }
+  
+  async getCategories(){
+    this.categoryService.getCategories().subscribe(
+      (data: Category[]) => {
+        this.categorias  = data;
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  getValueTotalComprar() {
-  //   var totalComprar = this.productService.getProducts()
-  //     .filter(elem => !elem._comprado)
-  //     .reduce(function (acc, elem) {
-  //       return acc + (elem._valor * elem._quantidade);
-  //     }, 0);
+  deleteProduct(id:number) {
+    this.productService.deleteProduct(id).subscribe(
+      (data) => {
+        this.getProducts();
+      },
+      (error) => {
+        console.log(error);
+        this.snackBar.open('Ops algo deu errado!', '', { duration: 2000 });
+      }
+    )
 
-  //     return totalComprar;
+  }
+  getCategoria(id: number):string {
+    return this.categorias.find(value => value.id === id).nome;
+  }
+  
+
+  getValueTotalComprar() {
+    // var totalComprar = this.productService.getProducts()
+    //   .filter(elem => !elem.comprado)
+    //   .reduce(function (acc, elem) {
+    //     return acc + (elem.valor * elem.quantidade);
+    //   }, 0);
+
+    //   return totalComprar;
   return 1;
   }
 

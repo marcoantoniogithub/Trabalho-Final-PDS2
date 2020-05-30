@@ -37,15 +37,17 @@ export class ReadStoreroomComponent implements OnInit {
 
 
   getStorerooms() {
-    this.storeroomService.getStorerooms().subscribe((data: Storeroom[]) => {
-      this.storerooms = data;
-      this.dataSource = new MatTableDataSource(this.storerooms);
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
-    },
+    this.storeroomService.getStorerooms().subscribe(
+      (data: Storeroom[]) => {
+        this.storerooms = data;
+        this.dataSource = new MatTableDataSource(this.storerooms);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
       (error) => {
         console.log(error);
-      });
+      }
+    );
   }
 
   ngOnInit(): void {

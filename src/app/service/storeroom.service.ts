@@ -20,27 +20,27 @@ export class StoreroomService {
 
   getStorerooms(): Observable<any> {
     const headers = this.getToken();
-    return this.http.get<Storeroom[]>(`${environment.apiUrl}/v1/storeroom`, { headers: headers });
+    return this.http.get<Storeroom[]>(`${environment.apiUrl}/v1/despensa`, { headers: headers });
      
   }
 
   getStoreroom(id: number) {
     const headers = this.getToken();
-     return this.http.get<Storeroom>(`${environment.apiUrl}/v1/storeroom/${id}`, { headers: headers });
+     return this.http.get<Storeroom>(`${environment.apiUrl}/v1/despensa/${id}`, { headers: headers });
   }
 
   addStoreroom(value:string): Observable<any>{
     const headers = this.getToken();
-    return this.http.post(`${environment.apiUrl}/v1/storeroom`,value, { headers: headers });
+    return this.http.post(`${environment.apiUrl}/v1/despensa`,value, { headers: headers });
   }
 
   deleteStoreroom(id:number){
     const headers = this.getToken();
-    return this.http.delete<void>(`${environment.apiUrl}/v1/storeroom/${id}`, { headers: headers});
+    return this.http.delete<void>(`${environment.apiUrl}/v1/despensa/${id}`, { headers: headers});
   }
 
   updateStoreroom(storeroom: Storeroom): Observable<any>{
     const headers = this.getToken();
-    return this.http.put<Storeroom>(`${environment.apiUrl}/v1/storeroom/}`,storeroom, { headers: headers });
+    return this.http.put<Storeroom>(`${environment.apiUrl}/v1/despensa/}`,storeroom, { headers: headers });
   }
 }

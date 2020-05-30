@@ -21,7 +21,6 @@ export class CategoryService {
   getCategories(): Observable<any> {
     const headers = this.getToken();
     return this.http.get<Category[]>(`${environment.apiUrl}/v1/categoria`, { headers: headers });
-     
   }
 
   getCategory(id: number) {

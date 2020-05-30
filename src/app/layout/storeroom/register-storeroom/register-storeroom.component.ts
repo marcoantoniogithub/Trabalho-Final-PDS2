@@ -26,7 +26,7 @@ export class RegisterStoreroomComponent implements OnInit {
   ) {
 
     this.form = fb.group({
-      nome:[
+      title:[
         '', 
         [
           Validators.minLength(3),
@@ -45,7 +45,7 @@ export class RegisterStoreroomComponent implements OnInit {
       this.storeroomService.getStoreroom(this.id).subscribe(
         (storeroom: Storeroom) => {
           this.storeroom = storeroom;
-          this.form.controls['nome'].setValue(this.storeroom.nome);
+          this.form.controls['title'].setValue(this.storeroom.title);
         },
         (error) => {
           this.snackBar.open('Ops, algo deu errado!','', { duration: 2000 });
@@ -59,7 +59,7 @@ export class RegisterStoreroomComponent implements OnInit {
   submit(){
     this.storeroomService.addStoreroom(this.form.value).subscribe(
       (data) => {
-        this.router.navigate(['/storeroom']);
+        this.router.navigate(['/despensa']);
       },
       (error) => {
         this.snackBar.open('Ops, algo deu errado!','', { duration: 2000 });

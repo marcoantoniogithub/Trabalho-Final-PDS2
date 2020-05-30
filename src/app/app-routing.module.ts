@@ -7,58 +7,76 @@ import { RegisterPageComponent } from './layout/core/register-page/register-page
 import { RegisterPurchaseItemComponent } from './layout/purchase-item/register-purchase-item/register-purchase-item.component';
 import { ReadCategoryComponent } from './layout/category/read-category/read-category.component';
 import { RegisterCategoryComponent } from './layout/category/register-category/register-category.component';
+import { ReadStoreroomComponent } from './layout/storeroom/read-storeroom/read-storeroom.component';
+import { RegisterStoreroomComponent } from './layout/storeroom/register-storeroom/register-storeroom.component';
 
 const routes: Routes = [
   {
-    path: 'home',
+    path:'',
     canActivate: [AuthGuard],
-    component: HomePageComponent
+    children: [
+      {
+        path: '',
+        canActivate: [AuthGuard],
+        component: HomePageComponent
+      },
+      {
+        path: 'categoria',
+        children: [
+          {
+            path: '',
+            component: ReadCategoryComponent
+          },
+          {
+            path: 'cadastrar',
+            children: [
+              {
+                path: '',
+                component: RegisterCategoryComponent
+              },
+              {
+                path: ':id',
+                component: RegisterCategoryComponent
+              }
+            ]
+          }
+    
+        ]
+      },
+      {
+        path: 'despensa',
+        children: [
+          {
+            path: '',
+            component: ReadStoreroomComponent
+          },
+          {
+            path: 'cadastrar',
+            children: [
+              {
+                path: '',
+                component: RegisterStoreroomComponent
+              },
+              {
+                path: ':id',
+                component: RegisterStoreroomComponent
+              }
+            ]
+          }
+        ]
+      },
+    ]
   },
   {
     path: 'login',
     component: LoginPageComponent,
   },
   {
-    path: 'register',
+    path: 'cadastrar',
     component: RegisterPageComponent
-  },
-  {
-    path: '',
-    canActivate: [AuthGuard],
-    component: HomePageComponent
-  },
-  {
-    path: 'categoria',
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: '',
-        component: ReadCategoryComponent
-      },
-      {
-        path: 'cadastrar',
-        children: [
-          {
-            path: '',
-            component: RegisterCategoryComponent
-          },
-          {
-            path: ':id',
-            component: RegisterCategoryComponent
-          }
-        ]
-      }
-
-    ]
   },
   { path: '**', redirectTo: '' },
 ];
-
-
-
-
-
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

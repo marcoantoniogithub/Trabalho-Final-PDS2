@@ -13,12 +13,13 @@ import { HomePageComponent } from './layout/purchase-item/home-page/home-page.co
 import { LoginPageComponent } from './layout/core/login-page/login-page.component';
 import { RodapeComponent } from './layout/core/rodape/rodape.component';
 import { RegisterPageComponent } from './layout/core/register-page/register-page.component';
-import { DespensaPageComponent } from './layout/storeroom/despensa-page/despensa-page.component';
 import { NavBarComponent } from './layout/core/nav-bar/nav-bar.component';
 import { RegisterPurchaseItemComponent } from './layout/purchase-item/register-purchase-item/register-purchase-item.component';
 import { RegisterCategoryComponent } from './layout/category/register-category/register-category.component';
 import { ReadCategoryComponent } from './layout/category/read-category/read-category.component';
 import { MaterialModule } from './layout/core/material/material.module';
+import { ReadStoreroomComponent } from './layout/storeroom/read-storeroom/read-storeroom.component';
+import { RegisterStoreroomComponent } from './layout/storeroom/register-storeroom/register-storeroom.component';
 
 
 
@@ -30,11 +31,12 @@ import { MaterialModule } from './layout/core/material/material.module';
     RodapeComponent,
     RegisterPageComponent,
     ReadCategoryComponent,
-    DespensaPageComponent,
     NavBarComponent,
     RegisterPurchaseItemComponent,
     RegisterCategoryComponent,
     ReadCategoryComponent,
+    ReadStoreroomComponent,
+    RegisterStoreroomComponent,
   ],
   imports: [
     BrowserModule,

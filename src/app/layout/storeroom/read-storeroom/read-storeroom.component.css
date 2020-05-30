@@ -1,0 +1,63 @@
+.home-content {
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(100% - 20px);
+    justify-content: space-between;
+     padding: 10px;   
+  }
+  
+  .filtro-listagem {
+    width: calc(100% - 50px);
+  }
+  
+  .mat-card-image {
+    width: 182px;
+    height: 268px;
+    margin: auto;
+    display: block;
+  }
+   
+  
+h1 {
+    background-color: grey;
+    color: white;
+    font-size: bold;
+    padding: 20px;
+}
+.mat-form-field {
+    padding:10px;
+    font-size: 14px;
+    width: 60%;
+}
+.table {
+   padding: 20px;
+   margin-top: 60px;
+   height: calc(100vh - 100px);
+}
+
+table {
+    width: 100%;
+}
+
+/*
+.column-btn{
+    display: flex;
+    align-items: center;
+} */
+
+button {
+    margin: 5px;
+}
+
+td, th {
+    width: 20%;
+}
+
+tr.mat-footer-row {
+    font-weight: bold;
+}
+
+.markBuy {
+    text-decoration: line-through;
+    color: #777;
+}

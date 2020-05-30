@@ -35,6 +35,9 @@ export class ReadCategoryComponent implements OnInit {
     this.getCategories();
   }
 
+  ngOnInit(): void {
+
+  }
 
   getCategories() {
     this.categoryService.getCategories().subscribe((data: Category[]) => {
@@ -46,10 +49,6 @@ export class ReadCategoryComponent implements OnInit {
       (error) => {
         console.log(error);
       });
-  }
-
-  ngOnInit(): void {
-
   }
 
   applyFilter(event: Event) {

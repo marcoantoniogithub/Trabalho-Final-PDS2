@@ -2,9 +2,13 @@
     <mat-sidenav #sidenav class="sidenav" fixedInViewport="true" >
         <mat-toolbar color="primary">Menu</mat-toolbar>
         <mat-nav-list (click)="fechaSideNav()">
-            <a mat-list-item [routerLink]="['/home']">Lista de Compra</a>
+            <a mat-list-item [routerLink]="['/home']">Item de Compra</a>
             <mat-divider></mat-divider>
             <a mat-list-item [routerLink]="['/categoria']">Categoria</a>
+            <mat-divider></mat-divider>
+            <a mat-list-item [routerLink]="['/categoria']">Compra</a>
+            <mat-divider></mat-divider>
+            <a mat-list-item [routerLink]="['/categoria']">Lista de Compra</a>
             <mat-divider></mat-divider>
         </mat-nav-list>
     </mat-sidenav>

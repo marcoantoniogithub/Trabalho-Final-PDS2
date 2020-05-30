@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 
 import { Product } from '../models/Product.model';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Category } from '../models/category.model';
+import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,27 +12,24 @@ import { Product } from '../models/Product.model';
 export class ProductService {
 
   items: Product[] = [];
-  constructor() { this.seed(); }
+  constructor(private http: HttpClient) { }
 
-  getProducts() {
-    return this.items;
+  getToken() :HttpHeaders {
+    const token = sessionStorage.getItem('token');
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
-  getProduct(id: number) {
-    return this.getProducts().find(item => item._id === +id);
+  getProducts(): Observable<any> {
+    const headers = this.getToken();
+    return this.http.get<Category[]>(`${environment.apiUrl}/v1/itemcompra`, { headers: headers });
   }
 
-  updateProduct(item) {
-    let prod = this.getProduct(item._id);
-    this.items[prod._id - 1] = item;
-  }
+  // getProduct(id: number) {
+  //   return this.getProducts().find(item => item._id === +id);
+  // }
 
-  seed() {
-    this.items.push(new Product(1, 'Leite', 'Laticínios', false, 12, 2.49));
-    this.items.push(new Product(2, 'Margarina', 'Laticínios', false, 1, 6.49));
-    this.items.push(new Product(3, 'Iogurte Nestle Familia', 'Laticínios', false, 1, 12.49));
-    this.items.push(new Product(4, 'Pao Integral', 'Padaria', false, 1, 4.49));
-    this.items.push(new Product(5, 'Biscoito Recheado', 'Padaria', false, 1, 3.49));
-    this.items.push(new Product(6, 'Arroz 5Kg Cocal Miri', 'Perecíveis', false, 1, 13.49));
-  }  
+  // updateProduct(item) {
+  //   let prod = this.getProduct(item._id);
+  //   this.items[prod._id - 1] = item;
+  // }
 }

@@ -26,12 +26,7 @@ export class ProductService {
   deleteProduct(id:number){
     const headers = this.getToken();
     return this.http.delete<void>(`${environment.apiUrl}/v1/itemcompra/${id}`, { headers: headers});
-  }
-
-   getProduct(id: number){
-     console.log(this.items);
-     console.log(this.items.find(item => item.id === id));
-   }
+  } 
 
    updateProduct(item: Product): Observable<Product> {
     const headers = this.getToken();

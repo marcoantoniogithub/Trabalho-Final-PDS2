@@ -72,7 +72,7 @@ export class RegisterStoreroomComponent implements OnInit {
     storeroom.id =  this.storeroom.id;    
     this.storeroomService.updateStoreroom(storeroom).subscribe(
       (data) => {
-        this.router.navigate(['/storeroom']);
+        this.router.navigate(['/despensa']);
       },
       (error) => {
         this.snackBar.open('Ops, algo deu errado!','', { duration: 2000 });

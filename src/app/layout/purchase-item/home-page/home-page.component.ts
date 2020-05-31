@@ -18,8 +18,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class HomePageComponent implements OnInit {
 
   mrkBuy: boolean = true;
-  products: Product[];
-  categorias: Category[];
+  products: Product[] = [];
+  product: Product;
+  categorias: Category[] = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -36,15 +37,15 @@ export class HomePageComponent implements OnInit {
   ) {
   }
 
-  async ngOnInit(): Promise<void>{
+  async ngOnInit(): Promise<void> {
     await this.getCategories();
     await this.getProducts();
   }
 
-  async getProducts(){
+  async getProducts() {
     this.productService.getProducts().subscribe(
-      (data: Product[]) => {
-        this.products = data;
+      (products: Product[]) => {
+        this.products.push(...products)
         this.dataSource = new MatTableDataSource(this.products);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -54,11 +55,11 @@ export class HomePageComponent implements OnInit {
       }
     );
   }
-  
-  async getCategories(){
+
+  async getCategories() {
     this.categoryService.getCategories().subscribe(
-      (data: Category[]) => {
-        this.categorias  = data;
+      (categorias: Category[]) => {
+        this.categorias.push(...categorias);
       },
       (error) => {
         console.log(error);
@@ -66,14 +67,13 @@ export class HomePageComponent implements OnInit {
     );
   }
 
-  
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  deleteProduct(id:number) {
+  deleteProduct(id: number) {
     this.productService.deleteProduct(id).subscribe(
       (data) => {
         this.getProducts();
@@ -85,39 +85,35 @@ export class HomePageComponent implements OnInit {
     )
 
   }
-  getCategoria(id: number):string {
-    return this.categorias.find(value => value.id === id).nome;
+
+  getCategoriaNome(id: number): string {
+    return this.categorias.find(value => value.id == id).nome;
   }
-  
+
 
   getValueTotalComprar() {
-    // var totalComprar = this.productService.getProducts()
-    //   .filter(elem => !elem.comprado)
-    //   .reduce(function (acc, elem) {
-    //     return acc + (elem.valor * elem.quantidade);
-    //   }, 0);
+    var totalComprar = this.products
+      .filter(elem => !elem.comprado)
+      .reduce(function (acc, elem) {
+        return acc + (elem.valor * elem.quantidade);
+      }, 0);
 
-    //   return totalComprar;
-  return 1;
+    return totalComprar;
   }
 
   getValueTotalComprado() {
-    // var totalComprado = this.productService.getProducts()
-    //   .filter(elem => elem._comprado)
-    //   .reduce(function (acc, elem) {
-    //     return acc + (elem._valor * elem._quantidade);
-    //   }, 0);
+     var totalComprado = this.products
+       .filter(elem => elem.comprado)
+       .reduce(function (acc, elem) {
+         return acc + (elem.valor * elem.quantidade);
+       }, 0);
 
-    // return totalComprado;
-    return 1;
+    return totalComprado;    
   }
 
   markAsBuyed(item) {
-    // item._comprado = item._comprado ? false : true;
-    // this.product = this.productService.getProduct(item._id);
-    // this.product._comprado = item._comprado;
-    // this.productService.updateProduct(this.product);
-    return 1;
+    item.comprado = item.comprado ? false : true;
+    this.productService.updateProduct(item);
   }
- 
+
 }

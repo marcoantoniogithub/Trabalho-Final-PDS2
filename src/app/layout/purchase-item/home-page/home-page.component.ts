@@ -7,6 +7,7 @@ import { ProductService } from 'src/app/service/product.service';
 import { CategoryService } from 'src/app/service/category.service';
 import { Category } from 'src/app/models/category.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoaderService } from 'src/app/service/loader.service';
 
 
 @Component({
@@ -33,7 +34,8 @@ export class HomePageComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private loaderService: LoaderService
   ) {
   }
 
@@ -43,14 +45,17 @@ export class HomePageComponent implements OnInit {
   }
 
   async getProducts() {
+    this.loaderService.show();
     this.productService.getProducts().subscribe(
       (products: Product[]) => {
         this.products.push(...products)
         this.dataSource = new MatTableDataSource(this.products);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+        this.loaderService.hide();
       },
       (error) => {
+        this.loaderService.hide();
         console.log(error);
       }
     );

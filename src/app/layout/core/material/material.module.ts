@@ -14,6 +14,7 @@ import { MatListModule} from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatMenuModule,
     MatAutocompleteModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
   ],
   exports: [
     MatCardModule,
@@ -49,6 +51,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatMenuModule,
     MatAutocompleteModule,
     MatCheckboxModule,
+    MatProgressSpinnerModule,
   ]
 })
 export class MaterialModule { }

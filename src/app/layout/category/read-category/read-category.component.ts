@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { CategoryService } from 'src/app/service/category.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoaderService } from 'src/app/service/loader.service';
 
 @Component({
   selector: 'app-read-category',
@@ -31,6 +32,7 @@ export class ReadCategoryComponent implements OnInit {
     private router: Router,
     private location: Location,
     private snackBar: MatSnackBar,
+    private loaderService: LoaderService
   ) {
     this.getCategories();
   }
@@ -40,13 +42,16 @@ export class ReadCategoryComponent implements OnInit {
   }
 
   getCategories() {
-    this.categoryService.getCategories().subscribe((data: Category[]) => {
+    this.loaderService.show();
+    this.categoryService.getCategories().subscribe((data: Category[]) => {      
       this.categorias = data;
       this.dataSource = new MatTableDataSource(this.categorias);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      this.loaderService.hide();
     },
       (error) => {
+        this.loaderService.hide();
         console.log(error);
       });
   }

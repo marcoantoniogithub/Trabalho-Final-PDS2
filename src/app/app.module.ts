@@ -20,6 +20,7 @@ import { ReadCategoryComponent } from './layout/category/read-category/read-cate
 import { MaterialModule } from './layout/core/material/material.module';
 import { ReadStoreroomComponent } from './layout/storeroom/read-storeroom/read-storeroom.component';
 import { RegisterStoreroomComponent } from './layout/storeroom/register-storeroom/register-storeroom.component';
+import { LoaderComponent } from './layout/core/loader/loader.component';
 
 
 
@@ -37,6 +38,7 @@ import { RegisterStoreroomComponent } from './layout/storeroom/register-storeroo
     ReadCategoryComponent,
     ReadStoreroomComponent,
     RegisterStoreroomComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,

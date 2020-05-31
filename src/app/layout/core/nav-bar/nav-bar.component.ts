@@ -11,11 +11,12 @@ import { LoginService } from 'src/app/service/login.service';
 })
 export class NavBarComponent implements OnInit {
 
-  @ViewChild('sidenav', {static: false}) sidenav: MatSidenav;
-  logado: boolean = false;   
+  @ViewChild('sidenav', { static: false }) sidenav: MatSidenav;
+  logado: boolean = false;
+  
 
   constructor(private loginService: LoginService,
-              private router: Router ) { }
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -29,11 +30,12 @@ export class NavBarComponent implements OnInit {
   }
 
   isLogado(): boolean {
-    return this.logado = this.loginService.logado();
+    this.logado = this.loginService.logado();
+    return this.logado;
   }
 
   sair() {
-     this.loginService.sair();
-     this.router.navigate(['/login']);  
+    this.loginService.sair();
+    this.router.navigate(['/login']);
   }
 }

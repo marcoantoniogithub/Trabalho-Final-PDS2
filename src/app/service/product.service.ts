@@ -28,12 +28,13 @@ export class ProductService {
     return this.http.delete<void>(`${environment.apiUrl}/v1/itemcompra/${id}`, { headers: headers});
   }
 
-  // getProduct(id: number) {
-  //   return this.getProducts().find(item => item._id === +id);
-  // }
+   getProduct(id: number){
+     console.log(this.items);
+     console.log(this.items.find(item => item.id === id));
+   }
 
-  // updateProduct(item) {
-  //   let prod = this.getProduct(item._id);
-  //   this.items[prod._id - 1] = item;
-  // }
+   updateProduct(item: Product): Observable<Product> {
+    const headers = this.getToken();
+    return this.http.post<Product>(`${environment.apiUrl}/v1/itemcompra`, item, { headers: headers });     
+   }
 }

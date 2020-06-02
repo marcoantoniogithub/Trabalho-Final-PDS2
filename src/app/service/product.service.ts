@@ -32,4 +32,9 @@ export class ProductService {
     const headers = this.getToken();
     return this.http.post<Product>(`${environment.apiUrl}/v1/itemcompra`, item, { headers: headers });     
    }
+
+   addProduct(value:string): Observable<any>{
+    const headers = this.getToken();
+    return this.http.post(`${environment.apiUrl}/v1/itemcompra`,value, { headers: headers });
+  }
 }

@@ -15,15 +15,10 @@
 
                 <mat-form-field>
                     <mat-label>Categoria</mat-label>
-                    <input type="text" matInput formControlName="categoria" [matAutocomplete]="autoGroup">
-                    <mat-autocomplete #autoGroup="matAutocomplete">
-                        <mat-optgroup *ngFor="let group of stateGroupOptions | async" [label]="group.letter">
-                          <mat-option *ngFor="let name of group.names" [value]="name">
-                            {{name}}
-                          </mat-option>
-                      </mat-optgroup>
-                    </mat-autocomplete>
-                </mat-form-field>
+                    <mat-select formControlName="categoria" multiple>
+                        <mat-option *ngFor="let categoria of categorias" [value]="categoria">{{categoria.nome}}</mat-option>
+                    </mat-select>
+                </mat-form-field>   
 
                 <mat-form-field>
                     <mat-label>Quantidade</mat-label>
@@ -39,7 +34,7 @@
 
                 <mat-card-actions>
                     <button mat-raised-button color="warn" type="reset">Limpar</button>
-                    <button mat-raised-button color="primary" routerLink="">Salvar</button>
+                    <button mat-raised-button color="primary" (click)="submit()">Salvar</button>
                 </mat-card-actions>
             </form>
         </mat-card-content>

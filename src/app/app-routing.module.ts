@@ -16,9 +16,26 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
-        path: '',
-        canActivate: [AuthGuard],
-        component: HomePageComponent
+        path:'home',
+        children: [
+          {
+            path: '',
+            component: HomePageComponent
+          },
+          {
+            path: 'cadastrar',
+            children: [
+            {
+              path: '',
+              component: RegisterPurchaseItemComponent
+            },
+            {
+              path: ':id',
+              component: RegisterPurchaseItemComponent
+            }
+            ]
+          }
+        ]
       },
       {
         path: 'categoria',
@@ -40,7 +57,6 @@ const routes: Routes = [
               }
             ]
           }
-    
         ]
       },
       {

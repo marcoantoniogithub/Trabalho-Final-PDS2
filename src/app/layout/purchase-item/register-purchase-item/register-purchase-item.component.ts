@@ -4,6 +4,9 @@ import { Categorias, _filter } from '../../core/register-page/register-page.comp
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { startWith, map } from 'rxjs/operators';
+import { CategoryService } from 'src/app/service/category.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ProductService } from 'src/app/service/product.service';
 
 @Component({
   selector: 'app-register-purchase-item',
@@ -11,30 +14,17 @@ import { startWith, map } from 'rxjs/operators';
   styleUrls: ['./register-purchase-item.component.css']
 })
 export class RegisterPurchaseItemComponent implements OnInit {
-
-  stateGroupOptions: Observable<Categorias[]>;
-
-  categoria: Categorias[] = [
-    {
-      letter: 'A',
-      names: ['Açougue']
-    }, {
-      letter: 'C',
-      names: ['Carne e Frios']
-    },
-    {
-      letter: 'F',
-      names: ['Frios e Laticínios']
-    },
-  ];
-
-  public form: FormGroup;
+  
+  form: FormGroup;
+  categorias:Categorias[] = [];
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
-  ) { 
-
+    private snackBar: MatSnackBar,
+    private categoryService:CategoryService,
+    private productService: ProductService,
+  ) {
     this.form = fb.group({
       item: [
         '',
@@ -70,20 +60,17 @@ export class RegisterPurchaseItemComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.stateGroupOptions = this.form.get('categoria')!.valueChanges
-      .pipe(
-        startWith(''),
-        map(value => this._filterGroup(value))
-      );
+    this.categoryService.getCategories().subscribe(
+      (data) =>{
+        this.categorias = data;
+      },
+      (error) =>{
+        this.snackBar.open('Ops algo deu errado!', '', { duration: 2000 });
+      }
+    )
   }
 
-  private _filterGroup(value: string): Categorias[] {
-    if (value) {
-      return this.categoria
-        .map(group => ({letter: group.letter, names: _filter(group.names, value)}))
-        .filter(group => group.names.length > 0);
-    }
-    return this.categoria;
+  submit(){
+    this.productService.addProduct(this.form.value);
   }
-
 }

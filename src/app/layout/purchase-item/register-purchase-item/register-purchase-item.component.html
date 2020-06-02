@@ -1,6 +1,6 @@
 <div>
     <mat-card>
-        <button mat-icon-button routerLink="">
+        <button mat-icon-button routerLink="/home">
             <mat-icon>keyboard_backspace</mat-icon>
         </button>
         <mat-card-header>
@@ -9,28 +9,28 @@
         <mat-card-content>
             <form [formGroup]="form">
                 <mat-form-field>
-                    <mat-label>Item</mat-label>
-                    <input matInput type="text" formControlName="item">
+                    <mat-label>Nome</mat-label>
+                    <input matInput type="text" formControlName="nome">
                 </mat-form-field>
 
                 <mat-form-field>
                     <mat-label>Categoria</mat-label>
-                    <mat-select formControlName="categoria" multiple>
-                        <mat-option *ngFor="let categoria of categorias" [value]="categoria">{{categoria.nome}}</mat-option>
+                    <mat-select formControlName="categoriaId">
+                        <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nome}}</mat-option>
                     </mat-select>
                 </mat-form-field>   
 
                 <mat-form-field>
                     <mat-label>Quantidade</mat-label>
-                    <input matInput type="text" formControlName="quantidade">
+                    <input matInput type="number" formControlName="quantidade">
                 </mat-form-field>
 
                 <mat-form-field>
                     <mat-label>Valor</mat-label>
-                    <input matInput type="text" formControlName="valor">
+                    <input matInput type="number" formControlName="valor">
                 </mat-form-field>
 
-                <mat-checkbox formControlName='checkBox'>Comprado</mat-checkbox>
+                <mat-checkbox formControlName='comprado'>Comprado</mat-checkbox>
 
                 <mat-card-actions>
                     <button mat-raised-button color="warn" type="reset">Limpar</button>

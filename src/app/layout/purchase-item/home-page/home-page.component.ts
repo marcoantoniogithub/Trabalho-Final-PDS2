@@ -40,6 +40,8 @@ export class HomePageComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    this.products = [];
+    this.categorias = [];
     await this.getCategories();
     await this.getProducts();
   }
@@ -81,20 +83,18 @@ export class HomePageComponent implements OnInit {
   deleteProduct(id: number) {
     this.productService.deleteProduct(id).subscribe(
       (data) => {
-        this.getProducts();
+        this.ngOnInit();
       },
       (error) => {
         console.log(error);
         this.snackBar.open('Ops algo deu errado!', '', { duration: 2000 });
       }
     )
-
   }
 
   getCategoriaNome(id: number): string {
     return this.categorias.find(value => value.id == id).nome;
   }
-
 
   getValueTotalComprar() {
     var totalComprar = this.products

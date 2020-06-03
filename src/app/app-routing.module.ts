@@ -16,6 +16,10 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       {
+        path: 'comprar',
+        component: FormPurchaseComponent
+      },
+      {
         path:'item',
         children: [
           {
@@ -81,10 +85,6 @@ const routes: Routes = [
           }
         ]
       },
-      {
-        path: 'comprar',
-        component: FormPurchaseComponent
-      }
     ]
   },
   {

@@ -5,3 +5,7 @@
 .mat-form-field {
     margin: 16px;
 }
+
+mat-vertical-stepper {
+    height: calc(100vh - 60px);
+}

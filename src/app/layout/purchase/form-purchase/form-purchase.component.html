@@ -20,7 +20,7 @@
                  required>
         </mat-form-field> -->
         <mat-form-field>
-            <mat-label>Items</mat-label>
+            <mat-label>Produtos</mat-label>
             <mat-select formControlName="itens" multiple>
                 <mat-option *ngFor="let product of products" [value]="product.id">{{product.nome}}</mat-option>
             </mat-select>

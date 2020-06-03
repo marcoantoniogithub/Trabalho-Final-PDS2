@@ -1,23 +1,21 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Product } from 'src/app/models/Product.model';
+import { Category } from 'src/app/models/category.model';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Product } from 'src/app/models/Product.model';
 import { ProductService } from 'src/app/service/product.service';
 import { CategoryService } from 'src/app/service/category.service';
-import { Category } from 'src/app/models/category.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoaderService } from 'src/app/service/loader.service';
 import { Router } from '@angular/router';
 
-
 @Component({
-  selector: 'app-home-page',
-  templateUrl: './home-page.component.html',
-  styleUrls: ['./home-page.component.css']
+  selector: 'app-read-purchase-item',
+  templateUrl: './read-purchase-item.component.html',
+  styleUrls: ['./read-purchase-item.component.css']
 })
-
-export class HomePageComponent implements OnInit {
+export class ReadPurchaseItemComponent implements OnInit {
 
   mrkBuy: boolean = true;
   products: Product[] = [];
@@ -29,7 +27,7 @@ export class HomePageComponent implements OnInit {
 
   ELEMENT_DATA: Product[] = [];
 
-  displayedColumns: string[] = ['nome', 'quantidade', 'valor', 'categoria', 'total', 'acoes'];
+  displayedColumns: string[] = ['nome', 'categoria', 'acoes'];
   dataSource: MatTableDataSource<Product>
 
   constructor(
@@ -95,7 +93,7 @@ export class HomePageComponent implements OnInit {
   }
 
   editProduct(id:number) {
-    this.router.navigate(['/home/cadastrar/' + id]);
+    this.router.navigate(['/item/cadastrar/' + id]);
   }
 
   getCategoriaNome(id: number): string {
@@ -135,5 +133,4 @@ export class HomePageComponent implements OnInit {
       }
     )
   }
-
 }

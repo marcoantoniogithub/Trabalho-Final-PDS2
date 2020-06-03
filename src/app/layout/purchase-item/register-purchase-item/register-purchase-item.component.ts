@@ -42,23 +42,23 @@ export class RegisterPurchaseItemComponent implements OnInit {
       categoriaId: [
         ''
       ],
-      quantidade: [
-        '',
-        [
-          Validators.maxLength(20),
-          Validators.required,
-        ],
-      ],
-      valor: [
-        '',
-        [
-          Validators.maxLength(20),
-          Validators.required,
-        ],
-      ],
-      comprado: [
-        false
-      ]
+      // quantidade: [
+      //   '',
+      //   [
+      //     Validators.maxLength(20),
+      //     Validators.required,
+      //   ],
+      // ],
+      // valor: [
+      //   '',
+      //   [
+      //     Validators.maxLength(20),
+      //     Validators.required,
+      //   ],
+      // ],
+      // comprado: [
+      //   false
+      // ]
     });
   }
 
@@ -92,9 +92,9 @@ export class RegisterPurchaseItemComponent implements OnInit {
   setAllValuesForm(produto: Product){
     this.form.controls['nome'].setValue(produto.nome);
     this.form.controls['categoriaId'].setValue(produto.categoriaId);
-    this.form.controls['quantidade'].setValue(produto.quantidade);
-    this.form.controls['valor'].setValue(produto.valor);
-    this.form.controls['comprado'].setValue(produto.comprado);
+    // this.form.controls['quantidade'].setValue(produto.quantidade);
+    // this.form.controls['valor'].setValue(produto.valor);
+    // this.form.controls['comprado'].setValue(produto.comprado);
   }
   
 
@@ -103,7 +103,7 @@ export class RegisterPurchaseItemComponent implements OnInit {
     this.productService.addProduct(this.form.value).subscribe(
       (data) => {
         this.snackBar.open('Cadastrado!','', { duration: 2000 });
-        this.router.navigate(['/home']);
+        this.router.navigate(['/item']);
       },
       (error) => {
         this.snackBar.open('Ops algo deu errado!', '', { duration: 2000 });
@@ -116,7 +116,7 @@ export class RegisterPurchaseItemComponent implements OnInit {
     product.id =  this.id;
     this.productService.updateProduct(product).subscribe(
       (data) => {
-        this.router.navigate(['/home']);
+        this.router.navigate(['/item']);
       },
       (error) => {
         this.snackBar.open('Ops, algo deu errado!','', { duration: 2000 });

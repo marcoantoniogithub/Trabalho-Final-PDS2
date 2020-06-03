@@ -9,7 +9,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AuthGuard } from './guards/guard';
 import { ProductService } from './service/product.service';
-import { HomePageComponent } from './layout/purchase-item/home-page/home-page.component';
 import { LoginPageComponent } from './layout/core/login-page/login-page.component';
 import { RodapeComponent } from './layout/core/rodape/rodape.component';
 import { RegisterPageComponent } from './layout/core/register-page/register-page.component';
@@ -21,13 +20,14 @@ import { MaterialModule } from './layout/core/material/material.module';
 import { ReadStoreroomComponent } from './layout/storeroom/read-storeroom/read-storeroom.component';
 import { RegisterStoreroomComponent } from './layout/storeroom/register-storeroom/register-storeroom.component';
 import { LoaderComponent } from './layout/core/loader/loader.component';
+import { FormPurchaseComponent } from './layout/purchase/form-purchase/form-purchase.component';
+import { ReadPurchaseItemComponent } from './layout/purchase-item/read-purchase-item/read-purchase-item.component';
 
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomePageComponent,
     LoginPageComponent,
     RodapeComponent,
     RegisterPageComponent,
@@ -39,6 +39,8 @@ import { LoaderComponent } from './layout/core/loader/loader.component';
     ReadStoreroomComponent,
     RegisterStoreroomComponent,
     LoaderComponent,
+    FormPurchaseComponent,
+    ReadPurchaseItemComponent,
   ],
   imports: [
     BrowserModule,

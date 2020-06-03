@@ -1,0 +1,43 @@
+<mat-vertical-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Escolhendo o nome da Lista</ng-template>
+        <mat-form-field>
+          <mat-label>Nome</mat-label>
+          <input matInput placeholder="ex:lista do mês de abril" formControlName="nome" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext [disabled]="!firstFormGroup.valid">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Escolhendo os items a ser comprado</ng-template>
+        <!-- <mat-form-field>
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                 required>
+        </mat-form-field> -->
+        <mat-form-field>
+            <mat-label>Items</mat-label>
+            <mat-select formControlName="itens" multiple>
+                <mat-option *ngFor="let product of products" [value]="product.id">{{product.nome}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext [disabled]="!secondFormGroup.valid">Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="submitAll()">Concluido</button>
+      </div>
+    </mat-step>
+  </mat-vertical-stepper>

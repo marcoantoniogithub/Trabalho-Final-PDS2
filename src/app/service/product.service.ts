@@ -30,11 +30,16 @@ export class ProductService {
 
    updateProduct(item: Product): Observable<Product> {
     const headers = this.getToken();
-    return this.http.post<Product>(`${environment.apiUrl}/v1/itemcompra`, item, { headers: headers });     
+    return this.http.put<Product>(`${environment.apiUrl}/v1/itemcompra/${item.id}`, item, { headers: headers });     
    }
 
    addProduct(value:string): Observable<any>{
     const headers = this.getToken();
     return this.http.post(`${environment.apiUrl}/v1/itemcompra`,value, { headers: headers });
+  }
+
+  getProductId(id: number): Observable<any>{
+    const headers = this.getToken();
+    return this.http.get(`${environment.apiUrl}/v1/itemcompra/${id}`, { headers: headers });
   }
 }

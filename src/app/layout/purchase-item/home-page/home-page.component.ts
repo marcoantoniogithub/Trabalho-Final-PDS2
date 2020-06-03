@@ -8,6 +8,7 @@ import { CategoryService } from 'src/app/service/category.service';
 import { Category } from 'src/app/models/category.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoaderService } from 'src/app/service/loader.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -35,7 +36,8 @@ export class HomePageComponent implements OnInit {
     private productService: ProductService,
     private categoryService: CategoryService,
     private snackBar: MatSnackBar,
-    private loaderService: LoaderService
+    private loaderService: LoaderService,
+    private router:Router,
   ) {
   }
 
@@ -92,6 +94,10 @@ export class HomePageComponent implements OnInit {
     )
   }
 
+  editProduct(id:number) {
+    this.router.navigate(['/home/cadastrar/' + id]);
+  }
+
   getCategoriaNome(id: number): string {
     return this.categorias.find(value => value.id == id).nome;
   }
@@ -118,7 +124,16 @@ export class HomePageComponent implements OnInit {
 
   markAsBuyed(item) {
     item.comprado = item.comprado ? false : true;
-    this.productService.updateProduct(item);
+    this.productService.updateProduct(item).subscribe(
+      (data) => {
+
+      },
+      (error) => {
+        this.snackBar.open('Ops algo deu errado!', '', { duration: 2000 });
+        console.log(error);
+        item.comprado = item.comprado ? false : true;
+      }
+    )
   }
 
 }

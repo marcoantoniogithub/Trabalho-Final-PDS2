@@ -1,12 +1,12 @@
 import { Category } from './category.model';
+import { Storeroom } from './storeroom.model';
 
 export class Product {
     id: number;
     nome: string;
-    quantidade: number;
-    valor: number;
     categoriaId:number;
     categorias: Category;
-    comprado: boolean;
+    despensaId: number;
+    despensas: Storeroom;
     usuario: string = '';
 }

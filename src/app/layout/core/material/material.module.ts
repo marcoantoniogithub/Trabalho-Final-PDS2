@@ -17,6 +17,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatTreeModule } from '@angular/material/tree';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatCheckboxModule,
     MatProgressSpinnerModule,
     MatSelectModule,
-    MatStepperModule
+    MatStepperModule,
+    MatTreeModule
   ],
   exports: [
     MatCardModule,
@@ -58,6 +60,7 @@ import { MatStepperModule } from '@angular/material/stepper';
     MatProgressSpinnerModule,
     MatSelectModule,
     MatStepperModule,
+    MatTreeModule
   ]
 })
 export class MaterialModule { }

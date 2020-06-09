@@ -42,4 +42,9 @@ export class ProductService {
     const headers = this.getToken();
     return this.http.get(`${environment.apiUrl}/v1/itemcompra/${id}`, { headers: headers });
   }
+
+  getProductForCategory(id: number): Observable<any>{
+    const headers = this.getToken();
+    return this.http.get(`${environment.apiUrl}/v1/itemcompra/categoria/${id}`, { headers: headers });
+  }
 }

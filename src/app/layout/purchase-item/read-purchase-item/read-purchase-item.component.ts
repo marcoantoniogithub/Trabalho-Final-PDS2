@@ -100,25 +100,25 @@ export class ReadPurchaseItemComponent implements OnInit {
     return this.categorias.find(value => value.id == id).nome;
   }
 
-  getValueTotalComprar() {
-    var totalComprar = this.products
-      .filter(elem => !elem.comprado)
-      .reduce(function (acc, elem) {
-        return acc + (elem.valor * elem.quantidade);
-      }, 0);
+  // getValueTotalComprar() {
+  //   var totalComprar = this.products
+  //     .filter(elem => !elem.comprado)
+  //     .reduce(function (acc, elem) {
+  //       return acc + (elem.valor * elem.quantidade);
+  //     }, 0);
 
-    return totalComprar;
-  }
+  //   return totalComprar;
+  // }
 
-  getValueTotalComprado() {
-     var totalComprado = this.products
-       .filter(elem => elem.comprado)
-       .reduce(function (acc, elem) {
-         return acc + (elem.valor * elem.quantidade);
-       }, 0);
+  // getValueTotalComprado() {
+  //    var totalComprado = this.products
+  //      .filter(elem => elem.comprado)
+  //      .reduce(function (acc, elem) {
+  //        return acc + (elem.valor * elem.quantidade);
+  //      }, 0);
 
-    return totalComprado;    
-  }
+  //   return totalComprado;    
+  // }
 
   markAsBuyed(item) {
     item.comprado = item.comprado ? false : true;

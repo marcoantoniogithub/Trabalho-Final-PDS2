@@ -10,14 +10,24 @@ import { ReadStoreroomComponent } from './layout/storeroom/read-storeroom/read-s
 import { RegisterStoreroomComponent } from './layout/storeroom/register-storeroom/register-storeroom.component';
 import { ReadPurchaseItemComponent } from './layout/purchase-item/read-purchase-item/read-purchase-item.component'
 import { FormPurchaseComponent } from './layout/purchase/form-purchase/form-purchase.component';
+import { ReadPurchaseComponent } from './layout/purchase/read-purchase/read-purchase.component';
 const routes: Routes = [
   {
     path:'',
     canActivate: [AuthGuard],
     children: [
       {
-        path: 'comprar',
-        component: FormPurchaseComponent
+        path: 'lista',
+        children:[
+          {
+            path:'',
+            component: ReadPurchaseComponent
+          },
+          {
+            path:'cadastrar',
+            component: FormPurchaseComponent
+          }
+        ]
       },
       {
         path:'item',

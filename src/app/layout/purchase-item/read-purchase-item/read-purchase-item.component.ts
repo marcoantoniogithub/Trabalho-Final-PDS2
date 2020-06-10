@@ -9,6 +9,8 @@ import { CategoryService } from 'src/app/service/category.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoaderService } from 'src/app/service/loader.service';
 import { Router } from '@angular/router';
+import { StoreroomService } from 'src/app/service/storeroom.service';
+import { Storeroom } from 'src/app/models/storeroom.model';
 
 @Component({
   selector: 'app-read-purchase-item',
@@ -21,18 +23,20 @@ export class ReadPurchaseItemComponent implements OnInit {
   products: Product[] = [];
   product: Product;
   categorias: Category[] = [];
+  storeroom: Storeroom[] = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   ELEMENT_DATA: Product[] = [];
 
-  displayedColumns: string[] = ['nome', 'categoria', 'acoes'];
+  displayedColumns: string[] = ['nome', 'categoria', 'despensa', 'acoes'];
   dataSource: MatTableDataSource<Product>
 
   constructor(
     private productService: ProductService,
     private categoryService: CategoryService,
+    private storeroomService: StoreroomService,
     private snackBar: MatSnackBar,
     private loaderService: LoaderService,
     private router:Router,
@@ -42,8 +46,9 @@ export class ReadPurchaseItemComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.products = [];
     this.categorias = [];
+    await this.getStoreRoom();
     await this.getCategories();
-    await this.getProducts();
+    await this.getProducts(); 
   }
 
   async getProducts() {
@@ -74,6 +79,16 @@ export class ReadPurchaseItemComponent implements OnInit {
     );
   }
 
+  async getStoreRoom() {
+    this.storeroomService.getStorerooms().subscribe(
+      (data: Storeroom[]) => {
+        this.storeroom.push(...data);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -100,37 +115,7 @@ export class ReadPurchaseItemComponent implements OnInit {
     return this.categorias.find(value => value.id == id).nome;
   }
 
-  // getValueTotalComprar() {
-  //   var totalComprar = this.products
-  //     .filter(elem => !elem.comprado)
-  //     .reduce(function (acc, elem) {
-  //       return acc + (elem.valor * elem.quantidade);
-  //     }, 0);
-
-  //   return totalComprar;
-  // }
-
-  // getValueTotalComprado() {
-  //    var totalComprado = this.products
-  //      .filter(elem => elem.comprado)
-  //      .reduce(function (acc, elem) {
-  //        return acc + (elem.valor * elem.quantidade);
-  //      }, 0);
-
-  //   return totalComprado;    
-  // }
-
-  markAsBuyed(item) {
-    item.comprado = item.comprado ? false : true;
-    this.productService.updateProduct(item).subscribe(
-      (data) => {
-
-      },
-      (error) => {
-        this.snackBar.open('Ops algo deu errado!', '', { duration: 2000 });
-        console.log(error);
-        item.comprado = item.comprado ? false : true;
-      }
-    )
+  getStoreroomNome(id: number): string {
+    return this.storeroom.find(value => value.id == id).title;
   }
 }

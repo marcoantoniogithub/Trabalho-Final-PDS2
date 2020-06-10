@@ -9,6 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ProductService } from 'src/app/service/product.service';
 import { Category } from 'src/app/models/category.model';
 import { Product } from 'src/app/models/Product.model';
+import { StoreroomService } from 'src/app/service/storeroom.service';
+import { Storeroom } from 'src/app/models/storeroom.model';
 
 @Component({
   selector: 'app-register-purchase-item',
@@ -18,7 +20,8 @@ import { Product } from 'src/app/models/Product.model';
 export class RegisterPurchaseItemComponent implements OnInit {
   
   form: FormGroup;
-  categorias:Category[] = [];
+  categorias: Category[] = [];
+  despensas: Storeroom[] = [];
   id: number;
   title: string;
 
@@ -29,6 +32,7 @@ export class RegisterPurchaseItemComponent implements OnInit {
     private snackBar: MatSnackBar,
     private categoryService:CategoryService,
     private productService: ProductService,
+    private storeroomService: StoreroomService,
   ) {
     this.form = fb.group({
       nome: [
@@ -42,23 +46,9 @@ export class RegisterPurchaseItemComponent implements OnInit {
       categoriaId: [
         ''
       ],
-      // quantidade: [
-      //   '',
-      //   [
-      //     Validators.maxLength(20),
-      //     Validators.required,
-      //   ],
-      // ],
-      // valor: [
-      //   '',
-      //   [
-      //     Validators.maxLength(20),
-      //     Validators.required,
-      //   ],
-      // ],
-      // comprado: [
-      //   false
-      // ]
+      despensaId: [
+        ''
+      ],
     });
   }
 
@@ -66,6 +56,15 @@ export class RegisterPurchaseItemComponent implements OnInit {
     this.categoryService.getCategories().subscribe(
       (data) =>{
         this.categorias = data;
+      },
+      (error) =>{
+        this.snackBar.open('Ops algo deu errado!', '', { duration: 2000 });
+      }
+    );
+
+    this.storeroomService.getStorerooms().subscribe(
+      (data) =>{
+        this.despensas = data;
       },
       (error) =>{
         this.snackBar.open('Ops algo deu errado!', '', { duration: 2000 });
@@ -92,11 +91,8 @@ export class RegisterPurchaseItemComponent implements OnInit {
   setAllValuesForm(produto: Product){
     this.form.controls['nome'].setValue(produto.nome);
     this.form.controls['categoriaId'].setValue(produto.categoriaId);
-    // this.form.controls['quantidade'].setValue(produto.quantidade);
-    // this.form.controls['valor'].setValue(produto.valor);
-    // this.form.controls['comprado'].setValue(produto.comprado);
+    this.form.controls['despensaId'].setValue(produto.despensaId);
   }
-  
 
   submit(){
     console.log(this.form.value);

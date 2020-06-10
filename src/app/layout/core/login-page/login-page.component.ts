@@ -50,7 +50,7 @@ export class LoginPageComponent implements OnInit {
       (data: any) => {
         sessionStorage.setItem('token', data.token);
         this.loaderService.hide();
-        this.router.navigate(['/comprar']);        
+        this.router.navigate(['/lista']);        
       },
       (error) => {
         this.loaderService.hide();

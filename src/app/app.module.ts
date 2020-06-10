@@ -22,6 +22,7 @@ import { RegisterStoreroomComponent } from './layout/storeroom/register-storeroo
 import { LoaderComponent } from './layout/core/loader/loader.component';
 import { FormPurchaseComponent } from './layout/purchase/form-purchase/form-purchase.component';
 import { ReadPurchaseItemComponent } from './layout/purchase-item/read-purchase-item/read-purchase-item.component';
+import { ReadPurchaseComponent } from './layout/purchase/read-purchase/read-purchase.component';
 
 
 
@@ -41,6 +42,7 @@ import { ReadPurchaseItemComponent } from './layout/purchase-item/read-purchase-
     LoaderComponent,
     FormPurchaseComponent,
     ReadPurchaseItemComponent,
+    ReadPurchaseComponent,
   ],
   imports: [
     BrowserModule,

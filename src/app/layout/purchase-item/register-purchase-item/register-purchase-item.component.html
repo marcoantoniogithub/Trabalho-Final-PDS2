@@ -18,7 +18,14 @@
                     <mat-select formControlName="categoriaId">
                         <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nome}}</mat-option>
                     </mat-select>
-                </mat-form-field>   
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Despensa</mat-label>
+                    <mat-select formControlName="despensaId">
+                        <mat-option *ngFor="let despensa of despensas" [value]="despensa.id">{{despensa.title}}</mat-option>
+                    </mat-select>
+                </mat-form-field> 
 
                 <!-- <mat-form-field>
                     <mat-label>Quantidade</mat-label>

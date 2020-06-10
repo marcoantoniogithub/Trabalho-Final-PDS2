@@ -57,8 +57,3 @@ td, th {
 tr.mat-footer-row {
     font-weight: bold;
 }
-
-.markBuy {
-    text-decoration: line-through;
-    color: #777;
-}

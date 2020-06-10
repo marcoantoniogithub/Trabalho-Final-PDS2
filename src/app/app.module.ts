@@ -6,6 +6,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 import { AuthGuard } from './guards/guard';
 import { ProductService } from './service/product.service';
@@ -52,7 +53,7 @@ import { ReadPurchaseComponent } from './layout/purchase/read-purchase/read-purc
     MaterialModule,    
     ReactiveFormsModule,
     HttpClientModule,
-    
+    FormsModule
   ],
   providers: [AuthGuard, ProductService],
   bootstrap: [AppComponent]

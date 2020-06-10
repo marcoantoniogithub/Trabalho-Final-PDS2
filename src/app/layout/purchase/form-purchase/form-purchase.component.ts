@@ -4,7 +4,7 @@ import { ProductService } from 'src/app/service/product.service';
 import { LoaderService } from 'src/app/service/loader.service';
 import { CategoryService } from 'src/app/service/category.service';
 import { Category } from 'src/app/models/category.model';
-
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
@@ -16,6 +16,10 @@ export class FormPurchaseComponent implements OnInit {
 
   products: Product[] = [];
   categorias: Category[] = [];
+
+  master_checked: boolean = false;
+  master_indeterminate: boolean = false;
+  checkbox_list = [];
 
   constructor(
     private productService: ProductService,
@@ -74,5 +78,11 @@ export class FormPurchaseComponent implements OnInit {
     );
   }
 
+  master_change() {    
+    for (let value of Object.values(this.products)) {
+      console.log(this.master_checked);
+      value.checked = this.master_checked;
+    }
+  }
 
 }

@@ -3,20 +3,38 @@
 <br />
 <br />
 
-  <button *ngFor="let categoria of categorias" [value] = "categoria.id" (click)="getProductByCategoriaId(categoria.id)"  >
-    {{categoria.nome}}   
-  </button>
-  
-  
-
-  <div *ngIf="products">
-    <span>Produtos</span>
-     <ul>
-       <li *ngFor="let product of products">
-            {{product.nome}}
-       </li>
-     </ul>
-  </div>
 
 
-  
+<button *ngFor="let categoria of categorias" [value]="categoria.id" (click)="getProductByCategoriaId(categoria.id)">
+  {{categoria.nome}}
+</button>
+
+
+<div style="padding: 50px; width:400px;">
+
+  <mat-card>
+
+    <mat-card-title>Produtos</mat-card-title>
+
+    <mat-card-content>
+
+      <mat-list>
+
+        <mat-list-item>
+          <mat-checkbox [(ngModel)]="master_checked" [(indeterminate)]="master_indeterminate"
+            (change)="master_change()"><b>Todos</b></mat-checkbox>
+        </mat-list-item>
+
+        <mat-list-item *ngFor="let product of products">
+          <mat-checkbox [(ngModel)]="product.checked">
+            {{ product.nome }}
+          </mat-checkbox>
+        </mat-list-item>
+
+      </mat-list>
+
+    </mat-card-content>
+  </mat-card>
+</div>
+
+

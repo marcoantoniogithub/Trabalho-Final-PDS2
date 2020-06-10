@@ -7,4 +7,5 @@ export class Product {
     categoriaId:number;
     despensaId: number;
     usuario: string = '';
+    checked: boolean = false;
 }

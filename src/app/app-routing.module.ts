@@ -105,7 +105,7 @@ const routes: Routes = [
     path: 'cadastrar',
     component: RegisterPageComponent
   },
-  { path: '**', redirectTo: '' },
+  {path: '**', redirectTo: '/lista'},
 ];
 
 @NgModule({

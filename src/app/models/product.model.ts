@@ -5,8 +5,6 @@ export class Product {
     id: number;
     nome: string;
     categoriaId:number;
-    categorias: Category;
     despensaId: number;
-    despensas: Storeroom;
     usuario: string = '';
 }

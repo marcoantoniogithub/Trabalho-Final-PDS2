@@ -6,47 +6,9 @@ import { LoaderService } from 'src/app/service/loader.service';
 import { CategoryService } from 'src/app/service/category.service';
 import { Category } from 'src/app/models/category.model';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { MatTreeNestedDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { mergeMap, tap, map } from 'rxjs/operators';
 
-interface FoodNode {
-  name: string;
-  children?: FoodNode[];
-}
-
-const TREE_DATA: FoodNode[] = [
-  {
-    name: 'Fruit',
-    children: [
-      {name: 'Apple'},
-      {name: 'Banana'},
-      {name: 'Fruit loops'},
-    ]
-  }, {
-    name: 'Vegetables',
-    children: [
-      {
-        name: 'Green',
-        children: [
-          {name: 'Broccoli'},
-          {name: 'Brussels sprouts'},
-        ]
-      }, {
-        name: 'Orange',
-        children: [
-          {name: 'Pumpkins'},
-          {name: 'Carrots'},
-        ]
-      },
-    ]
-  },
-];
-
-/** Flat node with expandable and level information */
-interface ExampleFlatNode {
-  expandable: boolean;
-  name: string;
-  level: number;
-}
 
 @Component({
   selector: 'app-form-purchase',
@@ -55,65 +17,76 @@ interface ExampleFlatNode {
 })
 export class FormPurchaseComponent implements OnInit {
 
-  isLinear = true;
   products: Product[] = [];
   categorias: Category[] = [];
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 
-  private _transformer = (node: FoodNode, level: number) => {
-    return {
-      expandable: !!node.children && node.children.length > 0,
-      name: node.name,
-      level: level,
-    };
-  }
-
-  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
-
-  treeControl = new FlatTreeControl<ExampleFlatNode>(node => node.level, node => node.expandable);
-  treeFlattener = new MatTreeFlattener(this._transformer, node => node.level, node => node.expandable, node => node.children);
-  dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+  //nestedTreeControl: NestedTreeControl<CategoryNode>;
+  //dataSource: MatTreeNestedDataSource<Category>;
 
   constructor(
     private productService: ProductService,
     private _formBuilder: FormBuilder,
     private categoryService: CategoryService,
     private loaderService: LoaderService,
-  ){
-    this.dataSource.data = TREE_DATA;
+  ) {
+    //this.dataSource = new MatTreeNestedDataSource();    
   }
 
-  
-
-  async ngOnInit() {
-    this.firstFormGroup = this._formBuilder.group({
-      nome: ['', Validators.required]
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      // nome: ['', Validators.required]
-    });
-    await this.getProducts();
+  ngOnInit() {
+    /* this.firstFormGroup = this._formBuilder.group({
+       nome: ['', Validators.required]
+     });
+     this.secondFormGroup = this._formBuilder.group({
+       // nome: ['', Validators.required]
+     });
+     //this.getProducts();
+     //this.dataSource = this.categorias;*/
+    this.loadPage();
+    //console.log(this.categorias);
   }
 
-  async getProducts() {
+  loadPage() {
     this.loaderService.show();
-    this.productService.getProducts().subscribe(
-      (products: Product[]) => {
-        this.products.push(...products);
+    this.categoryService.getCategories()
+      //mergeMap(item => item))
+      .subscribe(items => {
+        this.categorias = items;
+        //this.getProductById(items.id);
+        //console.log(this.categorias);
+        //console.log(this.products);
         this.loaderService.hide();
+      })
+  }
+
+  getProducts() {
+    this.productService.getProducts().subscribe(
+      (produtos: Product[]) => {
+        this.products.push(...produtos);
       },
       (error) => {
-        this.loaderService.hide();
         console.log(error);
       }
     );
   }
 
-  async getCategories() {
+  getCategories() {
     this.categoryService.getCategories().subscribe(
       (categorias: Category[]) => {
         this.categorias.push(...categorias);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getProductByCategoriaId(id: number) {    
+    this.productService.getProductForCategory(id).subscribe(
+      (produtos: Product[]) => {
+        this.products.push(...produtos);
+        console.log(produtos);
       },
       (error) => {
         console.log(error);

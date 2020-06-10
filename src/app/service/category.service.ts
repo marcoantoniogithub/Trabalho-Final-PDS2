@@ -18,7 +18,7 @@ export class CategoryService {
     return new HttpHeaders().set('Authorization', `Bearer ${token}`);
   }
 
-  getCategories(): Observable<any> {
+  getCategories(): Observable<Category[]> {
     const headers = this.getToken();
     return this.http.get<Category[]>(`${environment.apiUrl}/v1/categoria`, { headers: headers });
   }

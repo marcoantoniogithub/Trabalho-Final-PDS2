@@ -3,7 +3,7 @@
 <br />
 <br />
 
-  <button   *ngFor="let categoria of categorias" [value] = "categoria.id" (click)="getProductByCategoriaId(categoria.id)"  >
+  <button *ngFor="let categoria of categorias" [value] = "categoria.id" (click)="getProductByCategoriaId(categoria.id)"  >
     {{categoria.nome}}   
   </button>
   
@@ -13,7 +13,7 @@
     <span>Produtos</span>
      <ul>
        <li *ngFor="let product of products">
-            {{product.item}}
+            {{product.nome}}
        </li>
      </ul>
   </div>

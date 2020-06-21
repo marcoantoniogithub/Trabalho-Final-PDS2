@@ -11,6 +11,7 @@ import { RegisterStoreroomComponent } from './layout/storeroom/register-storeroo
 import { ReadPurchaseItemComponent } from './layout/purchase-item/read-purchase-item/read-purchase-item.component'
 import { FormPurchaseComponent } from './layout/purchase/form-purchase/form-purchase.component';
 import { ReadPurchaseComponent } from './layout/purchase/read-purchase/read-purchase.component';
+import { CreatePurchaseComponent } from './layout/purchase/create-purchase/create-purchase.component';
 const routes: Routes = [
   {
     path:'',
@@ -25,7 +26,7 @@ const routes: Routes = [
           },
           {
             path:'cadastrar',
-            component: FormPurchaseComponent
+            component: CreatePurchaseComponent
           }
         ]
       },

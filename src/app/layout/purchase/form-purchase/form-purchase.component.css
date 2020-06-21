@@ -9,3 +9,7 @@
 mat-vertical-stepper {
     height: calc(100vh - 60px);
 }
+
+mat-radio-button {
+    margin: 10px;
+}

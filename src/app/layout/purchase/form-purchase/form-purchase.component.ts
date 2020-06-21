@@ -26,27 +26,23 @@ export class FormPurchaseComponent implements OnInit {
     private categoryService: CategoryService,
     private loaderService: LoaderService,
   ) {
-   
   }
 
   ngOnInit() {  
     this.loadPage();
   }
 
-  loadPage() {
+  async loadPage() {
     this.loaderService.show();
-    this.categoryService.getCategories()
-      //mergeMap(item => item))
-      .subscribe(categorias => {
-        this.categorias = categorias;
-        this.loaderService.hide();
-      })
+    await this.getCategories();
+    this.loaderService.hide();
   }
 
   getProducts() {
     this.productService.getProducts().subscribe(
       (produtos: Product[]) => {
         this.products.push(...produtos);
+        this.loaderService.hide();
       },
       (error) => {
         console.log(error);
@@ -66,23 +62,27 @@ export class FormPurchaseComponent implements OnInit {
   }
 
   getProductByCategoriaId(id: number) {    
-    this.productService.getProductForCategory(id).subscribe(
-      (produtos: Product[]) => {
-        this.products = [];
-        this.products.push(...produtos);
-        console.log(produtos);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    // this.productService.getProductForCategory(id).subscribe(
+    //   (produtos: Product[]) => {
+    //     this.products = [];
+    //     this.products.push(...produtos);
+    //     console.log(produtos);
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
   }
 
-  master_change() {    
-    for (let value of Object.values(this.products)) {
-      console.log(this.master_checked);
-      value.checked = this.master_checked;
-    }
+  addList(id: number) {
+    
   }
+
+  // master_change() {    
+  //   for (let value of Object.values(this.products)) {
+  //     console.log(this.master_checked);
+  //     value.checked = this.master_checked;
+  //   }
+  // }
 
 }

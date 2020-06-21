@@ -18,6 +18,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatRadioModule } from '@angular/material/radio';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 
@@ -42,7 +44,9 @@ import { MatTreeModule } from '@angular/material/tree';
     MatProgressSpinnerModule,
     MatSelectModule,
     MatStepperModule,
-    MatTreeModule
+    MatTreeModule,
+    MatRadioModule,
+    MatTabsModule
   ],
   exports: [
     MatCardModule,
@@ -62,7 +66,9 @@ import { MatTreeModule } from '@angular/material/tree';
     MatProgressSpinnerModule,
     MatSelectModule,
     MatStepperModule,
-    MatTreeModule
+    MatTreeModule,
+    MatRadioModule,
+    MatTabsModule
   ]
 })
 export class MaterialModule { }

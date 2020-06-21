@@ -24,6 +24,7 @@ import { LoaderComponent } from './layout/core/loader/loader.component';
 import { FormPurchaseComponent } from './layout/purchase/form-purchase/form-purchase.component';
 import { ReadPurchaseItemComponent } from './layout/purchase-item/read-purchase-item/read-purchase-item.component';
 import { ReadPurchaseComponent } from './layout/purchase/read-purchase/read-purchase.component';
+import { CreatePurchaseComponent } from './layout/purchase/create-purchase/create-purchase.component';
 
 
 
@@ -44,6 +45,7 @@ import { ReadPurchaseComponent } from './layout/purchase/read-purchase/read-purc
     FormPurchaseComponent,
     ReadPurchaseItemComponent,
     ReadPurchaseComponent,
+    CreatePurchaseComponent,
   ],
   imports: [
     BrowserModule,

@@ -20,4 +20,14 @@ export class PurchaseListService {
     const headers = this.getToken();
     return this.http.get<PurchaseList[]>(`${environment.apiUrl}/v1/listacompra`, { headers: headers });
   }
+
+  addPurchaseList(value: string): Observable<any> {
+    const headers = this.getToken();
+    return this.http.post<PurchaseList>(`${environment.apiUrl}/v1/listacompra`,value, { headers: headers });
+  }
+
+  deletePurchaseList(id:number){
+    const headers = this.getToken();
+    return this.http.delete<void>(`${environment.apiUrl}/v1/listacompra/${id}`, { headers: headers});
+  }
 }

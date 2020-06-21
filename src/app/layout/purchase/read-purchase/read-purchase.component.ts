@@ -8,6 +8,7 @@ import { LoaderService } from 'src/app/service/loader.service';
 import { Router } from '@angular/router';
 import { PurchaseListService } from 'src/app/service/purchase-list.service';
 import { PurchaseList } from 'src/app/models/purchase-list.model';
+import { PurchaseService } from 'src/app/service/purchase.service';
 
 @Component({
   selector: 'app-read-purchase',
@@ -43,6 +44,7 @@ export class ReadPurchaseComponent implements OnInit {
     this.loaderService.show();
     this.purchaseListService.getPurchaseList().subscribe(
       (data: PurchaseList[]) => {
+        this.purchaseList = [];
         this.purchaseList.push(...data);
         this.dataSource = new MatTableDataSource(this.purchaseList);
         this.dataSource.paginator = this.paginator;
@@ -61,19 +63,19 @@ export class ReadPurchaseComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  deleteProduct(id: number) {
-    // this.productService.deleteProduct(id).subscribe(
-    //   (data) => {
-    //     this.ngOnInit();
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //     this.snackBar.open('Ops algo deu errado!', '', { duration: 2000 });
-    //   }
-    // )
+  deletePurchase(id: number) {
+    this.purchaseListService.deletePurchaseList(id).subscribe(
+      (data) => {
+        this.ngOnInit();
+      },
+      (error) => {
+        console.log(error);
+        this.snackBar.open('Ops algo deu errado!', '', { duration: 2000 });
+      }
+    )
   }
 
-  editProduct(id:number) {
+  editPurchase(id:number) {
     this.router.navigate(['/lista/cadastrar/' + id]);
   }
 }

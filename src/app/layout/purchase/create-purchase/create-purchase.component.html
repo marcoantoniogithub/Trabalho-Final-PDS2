@@ -11,14 +11,14 @@
       </div>
     </form>
   </mat-step>
-  <mat-step >s
+  <mat-step >
     <ng-template matStepLabel>Escolha os produtos </ng-template>
     <div class="table">
       <mat-form-field>
         <mat-label>Busca</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Leite">
       </mat-form-field>
-      <button mat-button matStepperNext>Concluido</button>
+      <button mat-button matStepperNext (click)="submit()">Concluido</button>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
         <ng-container matColumnDef="nome">
           <th mat-header-cell *matHeaderCellDef> Nome </th>

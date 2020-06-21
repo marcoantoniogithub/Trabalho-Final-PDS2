@@ -9,7 +9,6 @@ import { RegisterCategoryComponent } from './layout/category/register-category/r
 import { ReadStoreroomComponent } from './layout/storeroom/read-storeroom/read-storeroom.component';
 import { RegisterStoreroomComponent } from './layout/storeroom/register-storeroom/register-storeroom.component';
 import { ReadPurchaseItemComponent } from './layout/purchase-item/read-purchase-item/read-purchase-item.component'
-import { FormPurchaseComponent } from './layout/purchase/form-purchase/form-purchase.component';
 import { ReadPurchaseComponent } from './layout/purchase/read-purchase/read-purchase.component';
 import { CreatePurchaseComponent } from './layout/purchase/create-purchase/create-purchase.component';
 const routes: Routes = [

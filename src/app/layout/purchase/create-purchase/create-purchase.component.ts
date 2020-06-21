@@ -13,6 +13,10 @@ import { LoaderService } from 'src/app/service/loader.service';
 import { Router } from '@angular/router';
 import { nextTick } from 'process';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { PurchaseListService } from 'src/app/service/purchase-list.service';
+import { PurchaseList } from 'src/app/models/purchase-list.model';
+import { Purchase } from 'src/app/models/purchase.model';
+import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 
 @Component({
   selector: 'app-create-purchase',
@@ -28,6 +32,8 @@ export class CreatePurchaseComponent implements OnInit {
   storeroom: Storeroom[] = [];
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  purchaseList: PurchaseList;
+  purchases: Purchase[] = [];
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -45,6 +51,7 @@ export class CreatePurchaseComponent implements OnInit {
     private loaderService: LoaderService,
     private router:Router,
     private _formBuilder: FormBuilder,
+    private purchaseListService: PurchaseListService
   ) {
   }
 
@@ -134,4 +141,36 @@ export class CreatePurchaseComponent implements OnInit {
     });
   }
 
+  submit(){
+    this.products.forEach(element => {
+      if(element.comprar > 0){
+        var item:Purchase = {
+          id: null,
+          itemCompraId: Number(element.id),
+          dataCompra: null,
+          listaCompra: 1,
+          quantidade: Number(element.comprar),
+          valor: null,
+          comprado: false
+        }
+        console.log(item);
+        // item.itemCompraId = element.id;
+        // item.listaCompra = 1;
+        // item.quantidade = element.comprar;
+        // item.comprado = false;
+        this.purchases.push(item);
+      }
+    });
+    console.log(this.purchases);
+    let value = this.firstFormGroup.getRawValue() as PurchaseList;    
+    value.efetuada =  false;
+    this.purchaseListService.addPurchaseList(this.firstFormGroup.value).subscribe(
+      (data)=> {
+        
+      },
+      (error) =>{
+        console.log(error);
+      }
+    )
+  }
 }

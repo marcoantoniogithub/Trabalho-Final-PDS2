@@ -173,40 +173,9 @@ export class CreatePurchaseComponent implements OnInit {
       
       this.purchaseService.addPurchase(item).subscribe(
         (data) => {
-            console.log(data.value);
+          this.router.navigate(['/lista']);
         }
       )
     }); 
   }
-
-
-  /*
-  this.products.forEach(element => {
-    if(element.comprar > 0){
-      var item:Purchase = {
-        id: null,
-        itemCompraId: Number(element.id),
-        dataCompra: null,
-        listaCompra: 1,
-        quantidade: 0,
-        valor: null,
-        comprado: false
-      }
-      console.log(item);
-      this.purchases.push(item);
-    }
-  });
-  console.log(this.purchases);
-  let value = this.firstFormGroup.getRawValue() as PurchaseList;    
-  value.efetuada =  false;
-  this.purchaseListService.addPurchaseList(this.firstFormGroup.value).subscribe(
-          (data)=> {        
-    },
-    (error) =>{
-      console.log(error);
-    }
-  )
-
-  */
-
 }

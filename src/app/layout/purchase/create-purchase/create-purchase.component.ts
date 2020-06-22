@@ -17,6 +17,7 @@ import { PurchaseListService } from 'src/app/service/purchase-list.service';
 import { PurchaseList } from 'src/app/models/purchase-list.model';
 import { Purchase } from 'src/app/models/purchase.model';
 import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
+import { PurchaseService } from 'src/app/service/purchase.service';
 
 @Component({
   selector: 'app-create-purchase',
@@ -40,7 +41,7 @@ export class CreatePurchaseComponent implements OnInit {
 
   ELEMENT_DATA: Product[] = [];
 
-  displayedColumns: string[] = ['nome', 'categoria', 'despensa', 'quantidade', 'acoes'];
+  displayedColumns: string[] = ['nome', 'categoria', 'despensa', 'acoes'];
   dataSource: MatTableDataSource<Product>
 
   constructor(
@@ -49,9 +50,10 @@ export class CreatePurchaseComponent implements OnInit {
     private storeroomService: StoreroomService,
     private snackBar: MatSnackBar,
     private loaderService: LoaderService,
-    private router:Router,
+    private router: Router,
     private _formBuilder: FormBuilder,
-    private purchaseListService: PurchaseListService
+    private purchaseListService: PurchaseListService,
+    private purchaseService: PurchaseService
   ) {
   }
 
@@ -68,7 +70,7 @@ export class CreatePurchaseComponent implements OnInit {
     this.categorias = [];
     await this.getStoreRoom();
     await this.getCategories();
-    await this.getProducts(); 
+    await this.getProducts();
   }
 
   async getProducts() {
@@ -120,8 +122,8 @@ export class CreatePurchaseComponent implements OnInit {
 
   clearProduct(nome: string) {
     this.products.forEach(element => {
-      if(element.nome == nome) 
-        element.comprar = 0; 
+      if (element.nome == nome)
+        element.comprar = 0;
     });
   }
 
@@ -134,43 +136,77 @@ export class CreatePurchaseComponent implements OnInit {
     return this.storeroom.find(value => value.id == id).title;
   }
 
-  addProduct(nome: string){
+  addProduct(nome: string) {
     this.products.forEach(element => {
-      if(element.nome == nome) 
-        element.comprar += 1; 
+      if (element.nome == nome)
+        element.comprar += 1;
     });
   }
 
-  submit(){
-    this.products.forEach(element => {
-      if(element.comprar > 0){
-        var item:Purchase = {
-          id: null,
-          itemCompraId: Number(element.id),
-          dataCompra: null,
-          listaCompra: 1,
-          quantidade: Number(element.comprar),
-          valor: null,
-          comprado: false
-        }
-        console.log(item);
-        // item.itemCompraId = element.id;
-        // item.listaCompra = 1;
-        // item.quantidade = element.comprar;
-        // item.comprado = false;
-        this.purchases.push(item);
-      }
-    });
-    console.log(this.purchases);
-    let value = this.firstFormGroup.getRawValue() as PurchaseList;    
-    value.efetuada =  false;
+  submit() {
+    this.loaderService.show();
+    //Criar lista de compra no banco
+    let value = this.firstFormGroup.getRawValue() as PurchaseList;
+    value.efetuada = false;
     this.purchaseListService.addPurchaseList(this.firstFormGroup.value).subscribe(
-      (data)=> {
-        
+      (data) => {
+        this.addItensList(data.value.id);
+        this.loaderService.hide();
       },
-      (error) =>{
+      (error) => {
         console.log(error);
       }
     )
   }
+
+  addItensList(idPurchase: number) {
+     let itens = this.products.filter(i => i.comprar > 0);      
+     itens.forEach(element => {
+      let item: any = {       
+        itemCompraId: Number(element.id),
+        dataCompra: null,
+        listaCompraId: idPurchase,
+        quantidade: 0,
+        valor: null,
+        comprado: false
+      }      
+      
+      this.purchaseService.addPurchase(item).subscribe(
+        (data) => {
+            console.log(data.value);
+        }
+      )
+    }); 
+  }
+
+
+  /*
+  this.products.forEach(element => {
+    if(element.comprar > 0){
+      var item:Purchase = {
+        id: null,
+        itemCompraId: Number(element.id),
+        dataCompra: null,
+        listaCompra: 1,
+        quantidade: 0,
+        valor: null,
+        comprado: false
+      }
+      console.log(item);
+      this.purchases.push(item);
+    }
+  });
+  console.log(this.purchases);
+  let value = this.firstFormGroup.getRawValue() as PurchaseList;    
+  value.efetuada =  false;
+  this.purchaseListService.addPurchaseList(this.firstFormGroup.value).subscribe(
+          (data)=> {        
+    },
+    (error) =>{
+      console.log(error);
+    }
+  )
+
+  */
+
 }

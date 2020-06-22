@@ -38,16 +38,16 @@
           <td mat-footer-cell *matFooterCellDef></td>
         </ng-container> 
   
-        <ng-container matColumnDef="quantidade">
+       <!-- <ng-container matColumnDef="quantidade">
           <th mat-header-cell *matHeaderCellDef> Quantidade </th>
           <td mat-cell *matCellDef="let element">{{element.comprar}}</td>
           <td mat-footer-cell *matFooterCellDef></td>
-        </ng-container> 
+        </ng-container>  -->
     
         <ng-container matColumnDef="acoes">
           <th mat-header-cell *matHeaderCellDef></th>
           <td mat-cell *matCellDef="let element" align="end">
-            <button mat-raised-button color="accent" (click)="addProduct(element.nome)"><mat-icon>add</mat-icon></button>
+            <button *ngIf="element.comprar == 0" mat-raised-button color="accent" (click)="addProduct(element.nome)"><mat-icon>add</mat-icon></button>
             <button *ngIf="element.comprar > 0" mat-raised-button color="warn" (click)="clearProduct(element.nome)"><mat-icon>clear</mat-icon></button>
           </td>
           <td mat-footer-cell *matFooterCellDef></td>

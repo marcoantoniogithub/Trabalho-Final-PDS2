@@ -25,8 +25,7 @@ import { PurchaseService } from 'src/app/service/purchase.service';
   styleUrls: ['./create-purchase.component.css']
 })
 export class CreatePurchaseComponent implements OnInit {
-
-  mrkBuy: boolean = true;
+  
   products: Product[] = [];
   product: Product;
   categorias: Category[] = [];

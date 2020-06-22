@@ -24,8 +24,17 @@ const routes: Routes = [
             component: ReadPurchaseComponent
           },
           {
-            path:'cadastrar',
-            component: CreatePurchaseComponent
+            path: 'cadastrar',
+            children: [
+            {
+              path: '',
+              component: CreatePurchaseComponent
+            },
+            {
+              path: ':id',
+              component: CreatePurchaseComponent
+            }
+            ]
           }
         ]
       },

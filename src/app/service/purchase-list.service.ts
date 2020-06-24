@@ -36,4 +36,9 @@ export class PurchaseListService {
     const headers = this.getToken();
     return this.http.delete<void>(`${environment.apiUrl}/v1/listacompra/${id}`, { headers: headers});
   }
+
+  putPurchaseList(item: PurchaseList){
+    const headers = this.getToken();
+    return this.http.put<void>(`${environment.apiUrl}/v1/listacompra/${item.id}`,item, { headers: headers})
+  }
 }

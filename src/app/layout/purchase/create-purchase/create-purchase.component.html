@@ -18,7 +18,8 @@
         <mat-label>Busca</mat-label>
         <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Leite">
       </mat-form-field>
-      <button mat-button matStepperNext (click)="submit()">Concluido</button>
+      <button *ngIf="id == 0" mat-button matStepperNext (click)="submit()">Concluido</button>
+      <button *ngIf="id > 0" mat-button matStepperNext (click)="update()">Alterar</button>
       <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
         <ng-container matColumnDef="nome">
           <th mat-header-cell *matHeaderCellDef> Nome </th>

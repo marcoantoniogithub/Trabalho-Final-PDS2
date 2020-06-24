@@ -10,7 +10,7 @@ import { CategoryService } from 'src/app/service/category.service';
 import { StoreroomService } from 'src/app/service/storeroom.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoaderService } from 'src/app/service/loader.service';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { nextTick } from 'process';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PurchaseListService } from 'src/app/service/purchase-list.service';
@@ -18,6 +18,7 @@ import { PurchaseList } from 'src/app/models/purchase-list.model';
 import { Purchase } from 'src/app/models/purchase.model';
 import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 import { PurchaseService } from 'src/app/service/purchase.service';
+import { delay } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-purchase',
@@ -33,7 +34,8 @@ export class CreatePurchaseComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   purchaseList: PurchaseList;
-  purchases: Purchase[] = [];
+  //purchases: Purchase[] = [];
+  id: number;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -52,11 +54,15 @@ export class CreatePurchaseComponent implements OnInit {
     private router: Router,
     private _formBuilder: FormBuilder,
     private purchaseListService: PurchaseListService,
-    private purchaseService: PurchaseService
+    private purchaseService: PurchaseService,
+    private activeroute: ActivatedRoute
   ) {
   }
 
   async ngOnInit(): Promise<void> {
+
+    this.products = [];
+    this.categorias = [];
 
     this.firstFormGroup = this._formBuilder.group({
       nome: ['', Validators.required]
@@ -65,24 +71,44 @@ export class CreatePurchaseComponent implements OnInit {
       secondCtrl: ['', Validators.required]
     });
 
-    this.products = [];
-    this.categorias = [];
+    this.id = +this.activeroute.snapshot.paramMap.get('id');
+    console.log(this.id);
+
+    if(this.id > 0) {
+      this.purchaseListService.getPurchaseListById(this.id).subscribe(
+        (data: PurchaseList) => {
+          this.purchaseList = data;
+          this.firstFormGroup.controls['nome'].setValue(data.nome);
+        },
+        (error) => {
+          console.log(error);
+        }
+      )
+    }
+    await delay(400);
     await this.getStoreRoom();
+    await delay(400);
     await this.getCategories();
+    await delay(400);
     await this.getProducts();
+    await delay(400);
   }
 
   async getProducts() {
     this.loaderService.show();
     this.productService.getProducts().subscribe(
       (products: Product[]) => {
-        this.products.push(...products)
+        this.products.push(...products);
         this.dataSource = new MatTableDataSource(this.products);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         this.loaderService.hide();
         this.products.forEach(element => {
-          element.comprar = 0;
+          if(this.id > 0){
+            this.purchaseList.compras.find(a=> a.itemCompraId == element.id) != undefined?element.comprar = 1 : element.comprar = 0;
+          } else {
+            element.comprar = 0;
+          }
         });
       },
       (error) => {
@@ -156,6 +182,19 @@ export class CreatePurchaseComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+  update(){
+    let value = this.firstFormGroup.getRawValue() as PurchaseList;
+    value.efetuada = false;
+    this.purchaseListService.putPurchaseList(this.firstFormGroup.value).subscribe(
+      (data)=> {
+        console.log(data);
+      },
+      (error)=> {
+        console.log(error);
+      }
+    );
+
   }
 
   addItensList(idPurchase: number) {

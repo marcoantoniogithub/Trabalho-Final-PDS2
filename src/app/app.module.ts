@@ -24,6 +24,7 @@ import { LoaderComponent } from './layout/core/loader/loader.component';
 import { ReadPurchaseItemComponent } from './layout/purchase-item/read-purchase-item/read-purchase-item.component';
 import { ReadPurchaseComponent } from './layout/purchase/read-purchase/read-purchase.component';
 import { CreatePurchaseComponent } from './layout/purchase/create-purchase/create-purchase.component';
+import { BuyItensComponent } from './layout/purchase/buy-itens/buy-itens.component';
 
 
 
@@ -44,6 +45,7 @@ import { CreatePurchaseComponent } from './layout/purchase/create-purchase/creat
     ReadPurchaseItemComponent,
     ReadPurchaseComponent,
     CreatePurchaseComponent,
+    BuyItensComponent,
   ],
   imports: [
     BrowserModule,

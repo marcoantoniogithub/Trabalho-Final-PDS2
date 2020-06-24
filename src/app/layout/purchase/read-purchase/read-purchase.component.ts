@@ -78,4 +78,9 @@ export class ReadPurchaseComponent implements OnInit {
   editPurchase(id:number) {
     this.router.navigate(['/lista/cadastrar/' + id]);
   }
+
+  buyList(id:number){
+    console.log(id);
+    this.router.navigate(['/lista/buy/' + id]);
+  }
 }

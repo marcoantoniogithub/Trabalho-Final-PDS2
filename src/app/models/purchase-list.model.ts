@@ -4,5 +4,5 @@ export class PurchaseList {
     id: number;
     nome: string;
     efetuada: boolean;
-    compras: Array<Purchase>;
+    compras: Purchase[];
 }

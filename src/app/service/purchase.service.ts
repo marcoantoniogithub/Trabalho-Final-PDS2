@@ -25,4 +25,11 @@ export class PurchaseService {
     const headers = this.getToken();
     return this.http.post<Purchase>(`${environment.apiUrl}/v1/compra`,value, { headers: headers });
   }
+
+  putPurchase(value: Purchase): Observable<any>{
+    let id = value.id;
+    delete value.id;
+    const headers = this.getToken();
+    return this.http.put<Purchase>(`${environment.apiUrl}/v1/compra/${id}`,value, { headers: headers });
+  }
 }

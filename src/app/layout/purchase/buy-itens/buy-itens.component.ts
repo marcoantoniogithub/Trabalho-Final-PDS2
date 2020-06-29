@@ -10,6 +10,7 @@ import { ProductService } from 'src/app/service/product.service';
 import { ProductPurchase } from 'src/app/models/productPurchase.model';
 import { delay } from 'rxjs/operators';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { PurchaseService } from 'src/app/service/purchase.service';
 
 @Component({
   selector: 'app-buy-itens',
@@ -36,7 +37,8 @@ export class BuyItensComponent implements OnInit {
     private activeroute: ActivatedRoute,
     private purchaseListService: PurchaseListService,
     private productService: ProductService,
-    private _formBuilder: FormBuilder
+    private _formBuilder: FormBuilder,
+    private purchaseService: PurchaseService
   ) { }
 
   async ngOnInit(){
@@ -103,14 +105,25 @@ export class BuyItensComponent implements OnInit {
   }
 
   concluirCompra(){
-    console.log(this.productPurchase);
+    this.purchaseList.compras.forEach(element => {
+      this.purchaseService.putPurchase(element).subscribe(
+        data => {
+          console.log(data);
+        },
+        erro => {
+          console.log(erro);
+        }
+      )
+    });
+    
   }
 
   atualizarQuantidade(value:number, id:number){
     this.productPurchase.find(a => a.itemCompraId == id).quantidade = value;
-    console.log(this.purchaseList);
+    this.purchaseList.compras.find(a => a.itemCompraId == id).quantidade = value;
   }
   atualizarValor(value:number, id:number){
     this.productPurchase.find(a => a.itemCompraId == id).valor = value;
+    this.purchaseList.compras.find(a => a.itemCompraId == id).quantidade = value;
   }
 }

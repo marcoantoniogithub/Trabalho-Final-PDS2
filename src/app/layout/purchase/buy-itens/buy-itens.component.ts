@@ -9,6 +9,7 @@ import { PurchaseListService } from 'src/app/service/purchase-list.service';
 import { ProductService } from 'src/app/service/product.service';
 import { ProductPurchase } from 'src/app/models/productPurchase.model';
 import { delay } from 'rxjs/operators';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-buy-itens',
@@ -21,6 +22,7 @@ export class BuyItensComponent implements OnInit {
   purchaseList: PurchaseList;
   products: Product[] = [];
   productPurchase: ProductPurchase[] = [];
+  firstFormGroup: FormGroup;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -33,16 +35,21 @@ export class BuyItensComponent implements OnInit {
   constructor(
     private activeroute: ActivatedRoute,
     private purchaseListService: PurchaseListService,
-    private productService: ProductService
+    private productService: ProductService,
+    private _formBuilder: FormBuilder
   ) { }
 
   async ngOnInit(){
+
+    this.firstFormGroup = this._formBuilder.group({
+      nome: ['', Validators.required]
+    });
 
     this.id = +this.activeroute.snapshot.paramMap.get('id');
 
     await this.getPurchaseList();
     await this.getProducts();
-    setTimeout(() => {this.preencher();}, 3000);
+    setTimeout(() => {this.preencher();}, 1000);
   }
 
   async getProducts() {
@@ -68,15 +75,15 @@ export class BuyItensComponent implements OnInit {
   }
 
   preencher(){
-    
     this.purchaseList.compras.forEach(element => {
+      console.log(element);
       let novo: Product[]= this.products.filter(a => element.itemCompraId == a.id);
       this.productPurchase.push({
         id: novo[0].id,
         nome: novo[0].nome,
         categoriaId: null,
         despensaId: null,
-        itemCompraId: null,
+        itemCompraId: element.itemCompraId,
         dataCompra : null,
         listaCompraId: null,
         quantidade: element.quantidade,
@@ -96,6 +103,14 @@ export class BuyItensComponent implements OnInit {
   }
 
   concluirCompra(){
-    console.log(this.dataSource.data);
+    console.log(this.productPurchase);
+  }
+
+  atualizarQuantidade(value:number, id:number){
+    this.productPurchase.find(a => a.itemCompraId == id).quantidade = value;
+    console.log(this.purchaseList);
+  }
+  atualizarValor(value:number, id:number){
+    this.productPurchase.find(a => a.itemCompraId == id).valor = value;
   }
 }

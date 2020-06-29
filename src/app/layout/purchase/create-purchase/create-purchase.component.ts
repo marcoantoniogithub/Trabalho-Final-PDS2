@@ -26,7 +26,7 @@ import { delay } from 'rxjs/operators';
   styleUrls: ['./create-purchase.component.css']
 })
 export class CreatePurchaseComponent implements OnInit {
-  
+
   products: Product[] = [];
   product: Product;
   categorias: Category[] = [];
@@ -72,9 +72,8 @@ export class CreatePurchaseComponent implements OnInit {
     });
 
     this.id = +this.activeroute.snapshot.paramMap.get('id');
-    console.log(this.id);
 
-    if(this.id > 0) {
+    if (this.id > 0) {
       this.purchaseListService.getPurchaseListById(this.id).subscribe(
         (data: PurchaseList) => {
           this.purchaseList = data;
@@ -85,59 +84,43 @@ export class CreatePurchaseComponent implements OnInit {
         }
       )
     }
-    await delay(400);
-    await this.getStoreRoom();
-    await delay(400);
-    await this.getCategories();
-    await delay(400);
-    await this.getProducts();
-    await delay(400);
+
+    this.loadData();   
   }
 
-  async getProducts() {
-    this.loaderService.show();
-    this.productService.getProducts().subscribe(
-      (products: Product[]) => {
-        this.products.push(...products);
-        this.dataSource = new MatTableDataSource(this.products);
-        this.dataSource.paginator = this.paginator;
-        this.dataSource.sort = this.sort;
-        this.loaderService.hide();
-        this.products.forEach(element => {
-          if(this.id > 0){
-            this.purchaseList.compras.find(a=> a.itemCompraId == element.id) != undefined?element.comprar = 1 : element.comprar = 0;
-          } else {
-            element.comprar = 0;
-          }
-        });
-      },
-      (error) => {
-        this.loaderService.hide();
-        console.log(error);
-      }
-    );
-  }
-
-  async getCategories() {
-    this.categoryService.getCategories().subscribe(
-      (categorias: Category[]) => {
+  loadData() {
+    const promiseStoreRoom = this.storeroomService.getStorerooms().toPromise();
+    promiseStoreRoom.then((data: Storeroom[]) => {
+      this.storeroom.push(...data);
+      const promiseCategories = this.categoryService.getCategories().toPromise();
+      promiseCategories.then((categorias: Category[]) => {
         this.categorias.push(...categorias);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-  }
+        const promiseProduto = this.productService.getProducts().toPromise();
+        promiseProduto.then((produtos: Product[]) => {
+          this.products.push(...produtos);
+          //Carregando o datasource
+          this.dataSource = new MatTableDataSource(this.products);
+          this.dataSource.paginator = this.paginator;
+          this.dataSource.sort = this.sort;
+          this.loaderService.hide();
+          this.products.forEach(element => {
+            if (this.id > 0) {
+              this.purchaseList.compras.find(a => a.itemCompraId == element.id) != undefined ? element.comprar = 1 : element.comprar = 0;
+            } else {
+              element.comprar = 0;
+            }
+          });          
+        }, (error) => {
+          console.log(error);
+        })
 
-  async getStoreRoom() {
-    this.storeroomService.getStorerooms().subscribe(
-      (data: Storeroom[]) => {
-        this.storeroom.push(...data);
-      },
-      (error) => {
+      }, (error) => {
         console.log(error);
-      }
-    );
+      })
+
+    }, (error) => {
+      console.log(error);
+    })
   }
 
   applyFilter(event: Event) {
@@ -151,7 +134,6 @@ export class CreatePurchaseComponent implements OnInit {
         element.comprar = 0;
     });
   }
-
 
   getCategoriaNome(id: number): string {
     return this.categorias.find(value => value.id == id).nome;
@@ -183,37 +165,38 @@ export class CreatePurchaseComponent implements OnInit {
       }
     )
   }
-  update(){
+
+  update() {
     let value = this.firstFormGroup.getRawValue() as PurchaseList;
-    value.efetuada = false;
-    this.purchaseListService.putPurchaseList(this.firstFormGroup.value).subscribe(
-      (data)=> {
+   // value.efetuada = false;
+   /*
+   this.purchaseListService.putPurchaseList(this.firstFormGroup.value).subscribe(
+      (data) => {
         console.log(data);
       },
-      (error)=> {
+      (error) => {
         console.log(error);
       }
-    );
-
+    ); */
   }
 
   addItensList(idPurchase: number) {
-     let itens = this.products.filter(i => i.comprar > 0);      
-     itens.forEach(element => {
-      let item: any = {       
+    let itens = this.products.filter(i => i.comprar > 0);
+    itens.forEach(element => {
+      let item: any = {
         itemCompraId: Number(element.id),
         dataCompra: null,
         listaCompraId: idPurchase,
         quantidade: 0,
         valor: null,
         comprado: false
-      }      
-      
+      }
+
       this.purchaseService.addPurchase(item).subscribe(
         (data) => {
           this.router.navigate(['/lista']);
         }
       )
-    }); 
+    });
   }
 }

@@ -5,4 +5,5 @@ export class Product {
     despensaId: number;
     usuario: string = '';
     comprar: number = 0;
+    compraId: number = 0;
 }

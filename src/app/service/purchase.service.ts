@@ -26,10 +26,13 @@ export class PurchaseService {
     return this.http.post<Purchase>(`${environment.apiUrl}/v1/compra`,value, { headers: headers });
   }
 
-  putPurchase(value: Purchase): Observable<any>{
-    let id = value.id;
-    delete value.id;
+  deletePurchase(id:number) {
     const headers = this.getToken();
-    return this.http.put<Purchase>(`${environment.apiUrl}/v1/compra/${id}`,value, { headers: headers });
+    return this.http.delete<void>(`${environment.apiUrl}/v1/compra/${id}`, { headers: headers});
+  }
+
+  putPurchase(value: Purchase): Observable<Purchase>{   
+    const headers = this.getToken();    
+    return this.http.put<Purchase>(`${environment.apiUrl}/v1/compra/${value.id}`, value, { headers: headers });
   }
 }

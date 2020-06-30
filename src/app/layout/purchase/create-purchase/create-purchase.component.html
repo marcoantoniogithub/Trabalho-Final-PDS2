@@ -1,7 +1,7 @@
 <mat-horizontal-stepper linear #stepper>
   <mat-step [stepControl]="firstFormGroup">
     <form [formGroup]="firstFormGroup">
-      <ng-template matStepLabel>Nome da Lista</ng-template>
+      <ng-template matStepLabel>Nome da Lista</ng-template>      
       <mat-form-field>
         <mat-label>Nome</mat-label>
         <input matInput placeholder="Compra_Maio" formControlName="nome" required>
@@ -35,7 +35,7 @@
   
         <ng-container matColumnDef="despensa">
           <th mat-header-cell *matHeaderCellDef> Despensa </th>
-          <td mat-cell *matCellDef="let element">{{getStoreroomNome(element.categoriaId)}}</td>
+          <td mat-cell *matCellDef="let element">{{getStoreroomNome(element.despensaId)}}</td>
           <td mat-footer-cell *matFooterCellDef></td>
         </ng-container> 
   

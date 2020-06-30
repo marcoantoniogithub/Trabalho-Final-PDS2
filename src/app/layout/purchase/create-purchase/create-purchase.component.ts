@@ -11,14 +11,12 @@ import { StoreroomService } from 'src/app/service/storeroom.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoaderService } from 'src/app/service/loader.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { nextTick } from 'process';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PurchaseListService } from 'src/app/service/purchase-list.service';
 import { PurchaseList } from 'src/app/models/purchase-list.model';
 import { Purchase } from 'src/app/models/purchase.model';
-import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 import { PurchaseService } from 'src/app/service/purchase.service';
-import { delay } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-create-purchase',
@@ -59,7 +57,7 @@ export class CreatePurchaseComponent implements OnInit {
   ) {
   }
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit() {
 
     this.products = [];
     this.categorias = [];
@@ -85,7 +83,7 @@ export class CreatePurchaseComponent implements OnInit {
       )
     }
 
-    this.loadData();   
+    this.loadData();
   }
 
   loadData() {
@@ -103,13 +101,22 @@ export class CreatePurchaseComponent implements OnInit {
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
           this.loaderService.hide();
-          this.products.forEach(element => {
+          this.products.forEach(element => {           
             if (this.id > 0) {
-              this.purchaseList.compras.find(a => a.itemCompraId == element.id) != undefined ? element.comprar = 1 : element.comprar = 0;
+              let item: Purchase = this.purchaseList.compras.find(a => a.itemCompraId == element.id);                            
+              if(item != undefined) {
+                element.compraId = item.id;
+                element.comprar = 1; 
+              } 
+              else{
+                element.compraId = 0;
+                element.comprar = 0; 
+              }            
             } else {
-              element.comprar = 0;
+              element.compraId = 0;
+              element.comprar = 0;             
             }
-          });          
+          });
         }, (error) => {
           console.log(error);
         })
@@ -146,11 +153,12 @@ export class CreatePurchaseComponent implements OnInit {
   addProduct(nome: string) {
     this.products.forEach(element => {
       if (element.nome == nome)
-        element.comprar += 1;
+        element.comprar += 1;        
     });
   }
 
   submit() {
+
     this.loaderService.show();
     //Criar lista de compra no banco
     let value = this.firstFormGroup.getRawValue() as PurchaseList;
@@ -167,17 +175,14 @@ export class CreatePurchaseComponent implements OnInit {
   }
 
   update() {
-    let value = this.firstFormGroup.getRawValue() as PurchaseList;
-   // value.efetuada = false;
-   /*
-   this.purchaseListService.putPurchaseList(this.firstFormGroup.value).subscribe(
-      (data) => {
-        console.log(data);
-      },
-      (error) => {
-        console.log(error);
-      }
-    ); */
+    this.loaderService.show();   
+    let lista = +this.activeroute.snapshot.paramMap.get('id');  
+    let itens = this.products.filter(i => i.compraId > 0);    
+    itens.forEach(element=> {
+      this.purchaseService.deletePurchase(element.compraId).subscribe(        
+      );
+    });    
+    this.putItensList(lista);
   }
 
   addItensList(idPurchase: number) {
@@ -197,6 +202,27 @@ export class CreatePurchaseComponent implements OnInit {
           this.router.navigate(['/lista']);
         }
       )
+    });
+  }
+
+  putItensList(idPurchase: number) {
+    let itens = this.products.filter(i => i.comprar > 0);
+    itens.forEach(element => {
+      let item: any = {
+        compraId: Number(element.compraId),
+        itemCompraId: Number(element.id),
+        dataCompra: null,
+        listaCompraId: idPurchase,
+        quantidade: 0,
+        valor: null,
+        comprado: false
+      }
+
+      this.purchaseService.addPurchase(item).subscribe(
+        (data) => {         
+          this.router.navigate(['/lista']);
+        }
+      )      
     });
   }
 }

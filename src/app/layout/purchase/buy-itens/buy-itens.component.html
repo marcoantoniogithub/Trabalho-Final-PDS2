@@ -7,13 +7,13 @@
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
       <ng-container matColumnDef="nome">
         <th mat-header-cell *matHeaderCellDef> Nome </th>
-        <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+        <td mat-cell *matCellDef="let element">{{element.nome}} </td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
 
      <ng-container matColumnDef="quantidade">
         <th mat-header-cell *matHeaderCellDef> Quantidade </th>
-        <td mat-cell *matCellDef="let element"><input matInput (blur)="atualizarQuantidade($event.target.value, element.itemCompraId)" type="number" [value]="element.quantidade"></td>
+        <td mat-cell *matCellDef="let element" ><input matInput (blur)="atualizarQuantidade($event.target.value, element.itemCompraId)" type="number" [value]="element.quantidade"></td>
         <td mat-footer-cell *matFooterCellDef></td>
       </ng-container>
 

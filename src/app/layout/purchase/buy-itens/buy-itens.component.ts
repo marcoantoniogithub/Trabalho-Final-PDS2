@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { Product } from 'src/app/models/Product.model';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PurchaseList } from 'src/app/models/purchase-list.model';
 import { PurchaseListService } from 'src/app/service/purchase-list.service';
 import { ProductService } from 'src/app/service/product.service';
@@ -38,7 +38,8 @@ export class BuyItensComponent implements OnInit {
     private purchaseListService: PurchaseListService,
     private productService: ProductService,
     private _formBuilder: FormBuilder,
-    private purchaseService: PurchaseService
+    private purchaseService: PurchaseService,
+    private router: Router
   ) { }
 
   async ngOnInit(){
@@ -78,21 +79,21 @@ export class BuyItensComponent implements OnInit {
 
   preencher(){
     this.purchaseList.compras.forEach(element => {
-      console.log(element);
       let novo: Product[]= this.products.filter(a => element.itemCompraId == a.id);
       this.productPurchase.push({
-        id: novo[0].id,
+        id: element.id,
         nome: novo[0].nome,
         categoriaId: null,
         despensaId: null,
         itemCompraId: element.itemCompraId,
         dataCompra : null,
-        listaCompraId: null,
+        listaCompraId: this.id,
         quantidade: element.quantidade,
         valor: element.valor,
         comprado: element.comprado
       });
     });
+    console.log(this.productPurchase);
     
     this.dataSource = new MatTableDataSource(this.productPurchase);
     this.dataSource.paginator = this.paginator;
@@ -104,18 +105,28 @@ export class BuyItensComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  concluirCompra(){
-    this.purchaseList.compras.forEach(element => {
-      this.purchaseService.putPurchase(element).subscribe(
-        data => {
-          console.log(data);
-        },
-        erro => {
-          console.log(erro);
-        }
-      )
+  concluirCompra(){ 
+    this.productPurchase.forEach(element=> {
+      this.purchaseService.deletePurchase(element.id).subscribe(
+      );
     });
-    
+
+    let itens = this.productPurchase.filter(i => i.quantidade > 0);
+    itens.forEach(element => {
+      let item: any = {
+        itemCompraId: element.itemCompraId,
+        dataCompra: null,
+        listaCompraId: element.listaCompraId,
+        quantidade: +element.quantidade,
+        valor: +element.valor,
+        comprado: +element.quantidade>1?true:false
+      }
+      this.purchaseService.addPurchase(item).subscribe(
+        (data) => {         
+          this.router.navigate(['/lista']);
+        }
+      )      
+    });
   }
 
   atualizarQuantidade(value:number, id:number){
@@ -125,5 +136,9 @@ export class BuyItensComponent implements OnInit {
   atualizarValor(value:number, id:number){
     this.productPurchase.find(a => a.itemCompraId == id).valor = value;
     this.purchaseList.compras.find(a => a.itemCompraId == id).quantidade = value;
+  }
+
+  teste(element){
+    return element.comprado == true;
   }
 }

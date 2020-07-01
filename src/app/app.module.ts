@@ -25,6 +25,8 @@ import { ReadPurchaseItemComponent } from './layout/purchase-item/read-purchase-
 import { ReadPurchaseComponent } from './layout/purchase/read-purchase/read-purchase.component';
 import { CreatePurchaseComponent } from './layout/purchase/create-purchase/create-purchase.component';
 import { BuyItensComponent } from './layout/purchase/buy-itens/buy-itens.component';
+import { HistPurchaseComponent } from './layout/purchase/hist-purchase/hist-purchase.component';
+import { ViewPurchaseComponent } from './layout/purchase/view-purchase/view-purchase.component';
 
 
 
@@ -46,6 +48,8 @@ import { BuyItensComponent } from './layout/purchase/buy-itens/buy-itens.compone
     ReadPurchaseComponent,
     CreatePurchaseComponent,
     BuyItensComponent,
+    HistPurchaseComponent,
+    ViewPurchaseComponent
   ],
   imports: [
     BrowserModule,

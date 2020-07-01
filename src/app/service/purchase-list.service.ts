@@ -22,7 +22,7 @@ export class PurchaseListService {
     return this.http.get<PurchaseList[]>(`${environment.apiUrl}/v1/listacompra`, { headers: headers });
   }
 
-  getPurchaseListById(id:number): Observable<any> {
+  getPurchaseListById(id:number): Observable<PurchaseList> {
     const headers = this.getToken();
     return this.http.get<PurchaseList>(`${environment.apiUrl}/v1/listacompra/${id}`, { headers: headers });
   }

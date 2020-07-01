@@ -12,39 +12,52 @@ import { ReadPurchaseItemComponent } from './layout/purchase-item/read-purchase-
 import { ReadPurchaseComponent } from './layout/purchase/read-purchase/read-purchase.component';
 import { CreatePurchaseComponent } from './layout/purchase/create-purchase/create-purchase.component';
 import { BuyItensComponent } from './layout/purchase/buy-itens/buy-itens.component';
+import { HistPurchaseComponent } from './layout/purchase/hist-purchase/hist-purchase.component';
+import { ViewPurchaseComponent } from './layout/purchase/view-purchase/view-purchase.component';
+
+
 const routes: Routes = [
   {
-    path:'',
+    path: '',
     canActivate: [AuthGuard],
     children: [
       {
         path: 'lista',
-        children:[
+        children: [
           {
-            path:'',
+            path: '',
             component: ReadPurchaseComponent
           },
           {
             path: 'cadastrar',
             children: [
-            {
-              path: '',
-              component: CreatePurchaseComponent
-            },
-            {
-              path: ':id',
-              component: CreatePurchaseComponent
-            },
+              {
+                path: '',
+                component: CreatePurchaseComponent
+              },
+              {
+                path: ':id',
+                component: CreatePurchaseComponent
+              },
             ]
           },
           {
             path: 'buy/:id',
             component: BuyItensComponent
-          }
+          },
+          {
+            path: 'visualizar',
+            children: [
+              {
+                path: ':id',
+                component: ViewPurchaseComponent
+              }
+            ]
+          },
         ]
       },
       {
-        path:'item',
+        path: 'item',
         children: [
           {
             path: '',
@@ -53,14 +66,14 @@ const routes: Routes = [
           {
             path: 'cadastrar',
             children: [
-            {
-              path: '',
-              component: RegisterPurchaseItemComponent
-            },
-            {
-              path: ':id',
-              component: RegisterPurchaseItemComponent
-            }
+              {
+                path: '',
+                component: RegisterPurchaseItemComponent
+              },
+              {
+                path: ':id',
+                component: RegisterPurchaseItemComponent
+              }
             ]
           }
         ]
@@ -109,6 +122,10 @@ const routes: Routes = [
           }
         ]
       },
+      {
+        path: 'historico',
+        component: HistPurchaseComponent
+      }
     ]
   },
   {
@@ -119,7 +136,7 @@ const routes: Routes = [
     path: 'cadastrar',
     component: RegisterPageComponent
   },
-  {path: '**', redirectTo: '/lista'},
+  { path: '**', redirectTo: '/lista' },
 ];
 
 @NgModule({

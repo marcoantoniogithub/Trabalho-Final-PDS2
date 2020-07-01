@@ -30,7 +30,7 @@ export class BuyItensComponent implements OnInit {
 
   ELEMENT_DATA: ProductPurchase[] = [];
 
-  displayedColumns: string[] = ['nome', 'quantidade','valor'];
+  displayedColumns: string[] = ['nome', 'quantidade', 'valor'];
   dataSource: MatTableDataSource<ProductPurchase>
 
   constructor(
@@ -42,7 +42,7 @@ export class BuyItensComponent implements OnInit {
     private router: Router
   ) { }
 
-  async ngOnInit(){
+  async ngOnInit() {
 
     this.firstFormGroup = this._formBuilder.group({
       nome: ['', Validators.required]
@@ -52,7 +52,7 @@ export class BuyItensComponent implements OnInit {
 
     await this.getPurchaseList();
     await this.getProducts();
-    setTimeout(() => {this.preencher();}, 1000);
+    setTimeout(() => { this.preencher(); }, 1000);
   }
 
   async getProducts() {
@@ -66,7 +66,7 @@ export class BuyItensComponent implements OnInit {
     );
   }
 
-  getPurchaseList(){
+  getPurchaseList() {
     this.purchaseListService.getPurchaseListById(this.id).subscribe(
       (data: PurchaseList) => {
         this.purchaseList = data;
@@ -77,16 +77,16 @@ export class BuyItensComponent implements OnInit {
     )
   }
 
-  preencher(){
+  preencher() {
     this.purchaseList.compras.forEach(element => {
-      let novo: Product[]= this.products.filter(a => element.itemCompraId == a.id);
+      let novo: Product[] = this.products.filter(a => element.itemCompraId == a.id);
       this.productPurchase.push({
         id: element.id,
         nome: novo[0].nome,
         categoriaId: null,
         despensaId: null,
         itemCompraId: element.itemCompraId,
-        dataCompra : null,
+        dataCompra: null,
         listaCompraId: this.id,
         quantidade: element.quantidade,
         valor: element.valor,
@@ -94,7 +94,7 @@ export class BuyItensComponent implements OnInit {
       });
     });
     console.log(this.productPurchase);
-    
+
     this.dataSource = new MatTableDataSource(this.productPurchase);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
@@ -105,8 +105,8 @@ export class BuyItensComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  concluirCompra(){ 
-    this.productPurchase.forEach(element=> {
+  concluirCompra() {
+    this.productPurchase.forEach(element => {
       this.purchaseService.deletePurchase(element.id).subscribe(
       );
     });
@@ -119,26 +119,44 @@ export class BuyItensComponent implements OnInit {
         listaCompraId: element.listaCompraId,
         quantidade: +element.quantidade,
         valor: +element.valor,
-        comprado: +element.quantidade>1?true:false
+        comprado: +element.quantidade > 1 ? true : false
       }
-      this.purchaseService.addPurchase(item).subscribe(
-        (data) => {         
-          this.router.navigate(['/lista']);
-        }
-      )      
+      this.purchaseService.addPurchase(item).subscribe();              
     });
+
+
+    let purchList: PurchaseList;
+    //Pego a lista de compra e atualiza ela para comprada
+    this.purchaseListService.getPurchaseListById(this.id).subscribe(
+      (data: PurchaseList) => {
+        purchList = data;
+        purchList.efetuada = true;
+        this.purchaseListService.putPurchaseList(purchList).subscribe(
+          (data) => {
+             this.router.navigate(['/lista']);
+          }
+        )
+      },
+      (error) => {
+        console.log(error);
+      }
+    )
+
+    
+
+
   }
 
-  atualizarQuantidade(value:number, id:number){
+  atualizarQuantidade(value: number, id: number) {
     this.productPurchase.find(a => a.itemCompraId == id).quantidade = value;
     this.purchaseList.compras.find(a => a.itemCompraId == id).quantidade = value;
   }
-  atualizarValor(value:number, id:number){
+  atualizarValor(value: number, id: number) {
     this.productPurchase.find(a => a.itemCompraId == id).valor = value;
     this.purchaseList.compras.find(a => a.itemCompraId == id).quantidade = value;
   }
 
-  teste(element){
+  teste(element) {
     return element.comprado == true;
   }
 }

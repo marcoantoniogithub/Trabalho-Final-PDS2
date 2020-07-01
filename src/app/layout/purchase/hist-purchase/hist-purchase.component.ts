@@ -11,11 +11,11 @@ import { PurchaseList } from 'src/app/models/purchase-list.model';
 import { PurchaseService } from 'src/app/service/purchase.service';
 
 @Component({
-  selector: 'app-read-purchase',
-  templateUrl: './read-purchase.component.html',
-  styleUrls: ['./read-purchase.component.css']
+  selector: 'app-hist-purchase',
+  templateUrl: './hist-purchase.component.html',
+  styleUrls: ['./hist-purchase.component.css']
 })
-export class ReadPurchaseComponent implements OnInit {
+export class HistPurchaseComponent implements OnInit {
 
   mrkBuy: boolean = true;
   purchaseList: PurchaseList[] = [];
@@ -45,7 +45,7 @@ export class ReadPurchaseComponent implements OnInit {
     this.purchaseListService.getPurchaseList().subscribe(
       (data: PurchaseList[]) => {
         this.purchaseList = [];
-        this.purchaseList.push(...data.filter(item=> item.efetuada == false));
+        this.purchaseList.push(...data.filter(item=> item.efetuada == true));
         this.dataSource = new MatTableDataSource(this.purchaseList);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -62,25 +62,11 @@ export class ReadPurchaseComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
+ 
 
-  deletePurchase(id: number) {
-    this.purchaseListService.deletePurchaseList(id).subscribe(
-      (data) => {
-        this.ngOnInit();
-      },
-      (error) => {
-        console.log(error);
-        this.snackBar.open('Ops algo deu errado!', '', { duration: 2000 });
-      }
-    )
+  viewPurchase(id:number) {
+    this.router.navigate(['/lista/visualizar/' + id]);
   }
 
-  editPurchase(id:number) {
-    this.router.navigate(['/lista/cadastrar/' + id]);
-  }
 
-  buyList(id:number){
-    console.log(id);
-    this.router.navigate(['/lista/buy/' + id]);
-  }
 }
